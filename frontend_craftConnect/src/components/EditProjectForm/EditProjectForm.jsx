@@ -10,7 +10,7 @@ const EditProjectForm = ({ id, project, onUpdate }) => {
     e.preventDefault();
 
     const response = await fetch(
-      `https://craftconnect-c5w4.onrender.com/api/project/${id}/${project._id}`,
+      `https://craftconnect-production.up.railway.app/api/project/${id}/${project._id}`,
       {
         method: "PUT",
         headers: {

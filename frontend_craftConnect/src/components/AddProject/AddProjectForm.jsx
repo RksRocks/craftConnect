@@ -11,7 +11,7 @@ const AddProjectForm = ({ userId }) => {
     e.preventDefault();
 
     const response = await fetch(
-      "https://craftconnect-c5w4.onrender.com/api/project/add",
+      "https://craftconnect-production.up.railway.app/api/project/add",
       {
         method: "POST",
         headers: {

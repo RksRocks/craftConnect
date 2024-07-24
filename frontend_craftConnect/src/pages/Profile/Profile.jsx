@@ -27,7 +27,7 @@ function Profile() {
 
   const handleDelete = async (projectId) => {
     const response = await fetch(
-      `https://craftconnect-c5w4.onrender.com/api/project/${id}/${projectId}`,
+      `https://craftconnect-production.up.railway.app/api/project/${id}/${projectId}`,
       {
         method: "DELETE",
         credentials: "include", // Include cookies for authentication

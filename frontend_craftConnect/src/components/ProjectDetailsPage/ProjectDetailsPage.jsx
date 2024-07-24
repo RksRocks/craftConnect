@@ -13,7 +13,7 @@ function ProjectDetailsPage() {
   useEffect(() => {
     const fetchProjectDetails = async () => {
       const response = await fetch(
-        `https://craftconnect-c5w4.onrender.com/api/project/${projectId}`,
+        `https://craftconnect-production.up.railway.app/api/project/${projectId}`,
         {
           credentials: "include", // Include cookies for authentication
           headers: {
@@ -68,7 +68,10 @@ function ProjectDetailsPage() {
           </li>
         ))}
       </ul>
-      <CommentForm projectId={project._id} onCommentAdded={handleCommentAdded} />
+      <CommentForm
+        projectId={project._id}
+        onCommentAdded={handleCommentAdded}
+      />
     </div>
   );
 }
