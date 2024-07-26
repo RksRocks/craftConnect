@@ -1,12 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import LogoutButton from "../LogoutButton/LogoutButton";
+import UserSearch from "../UserSearch/UserSearch";
 
 function Navbar() {
   const history = useNavigate();
+  const token = localStorage.getItem("token");
   const userProfile = () => {
-    const token = localStorage.getItem("token");
-
     if (!token) {
       return history(`/login`);
     }
@@ -27,14 +27,22 @@ function Navbar() {
       </div>
       <div className="w-1/2">
         <ul className="flex w-full justify-around font-medium">
-          <li>Home</li>
-          <li>Dashboard</li>
-          <li>Most Liked</li>
+          <Link to={"/"}>Home</Link>
+          {/* <li>Dashboard</li> */}
+          <Link to={"/most-upvoted"}>Most Liked</Link>
           {/* top rated */}
-          <li onClick={userProfile}>Profile</li>
-          <Link to={"/login"}>Login</Link>
-          <Link to={"/register"}>Register</Link>
-          <LogoutButton />
+          <p onClick={userProfile} className="cursor-pointer">
+            Profile
+          </p>
+          {!token ? (
+            <>
+              <Link to={"/login"}>Login</Link>
+              <Link to={"/register"}>Register</Link>
+            </>
+          ) : (
+            <LogoutButton />
+          )}
+          <UserSearch />
         </ul>
       </div>
     </div>
