@@ -1,7 +1,7 @@
 // components/AddProjectForm.jsx
 import { useState } from "react";
 
-const AddProjectForm = ({ userId }) => {
+const AddProjectForm = ({ userId, onAdd }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [link, setLink] = useState("");
