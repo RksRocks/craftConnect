@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import axios from "../../api/axios";
 
-const EditUserForm = ({ currentUser }) => {
+const EditUserForm = ({ currentUser, isLoggedIn }) => {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
