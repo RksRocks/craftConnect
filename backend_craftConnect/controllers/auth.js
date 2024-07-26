@@ -7,7 +7,11 @@ export const register = async (req, res) => {
   try {
     const { username, email, password, role } = req.body;
 
-    const user = new User({ username, email, password, role });
+    const profileImg =
+      "https://api.multiavatar.com/" +
+      JSON.stringify(Math.floor(Math.random() * 10000000)) +
+      ".svg";
+    const user = new User({ username, email, password, role, profileImg });
     await user.save();
 
     res.status(201).json({ message: "User registered successfully" });

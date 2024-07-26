@@ -11,7 +11,7 @@ function Rankers({ ranker, rank }) {
       <div className="top-performer-details w-full flex gap-5">
         <div className="top-performer-img w-[10.8rem]  flex justify-center items-center   overflow-hidden">
           <img
-            src="https://as2.ftcdn.net/v2/jpg/05/87/66/83/1000_F_587668357_Vco2ldq4Q9aWDH3ynxSOCydf5W1UdvrK.jpg"
+            src={ranker.user.profileImg}
             alt=""
             className="w-20 h-20 rounded-full"
           />

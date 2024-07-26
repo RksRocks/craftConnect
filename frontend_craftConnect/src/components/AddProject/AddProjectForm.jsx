@@ -28,6 +28,7 @@ const AddProjectForm = ({ userId }) => {
 
     if (response.ok) {
       setMessage("Project added successfully");
+      onAdd(data.project);
       setTitle("");
       setDescription("");
       setLink("");

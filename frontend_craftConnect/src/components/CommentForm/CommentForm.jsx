@@ -16,7 +16,7 @@ const CommentForm = ({ projectId, onCommentAdded }) => {
           },
         }
       );
-      onCommentAdded(response.data.comment);
+      onCommentAdded(response.data.comment, response.data.username);
       setContent("");
     } catch (error) {
       console.error("Failed to add comment:", error.response.data.message);

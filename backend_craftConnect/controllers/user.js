@@ -84,3 +84,25 @@ export const updateProfile = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const searchProfile = async (req, res) => {
+  try {
+    const { query } = req.query; // Search term from query parameter
+
+    if (!query) {
+      return res.status(400).json({ message: "Query is required" });
+    }
+
+    // Regular expression for case-insensitive search
+    const regex = new RegExp(query, "i");
+
+    const users = await User.find({
+      $or: [{ username: { $regex: regex } }, { email: { $regex: regex } }],
+    })
+      .limit(5)
+      .exec();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: "Error searching users", error });
+  }
+};

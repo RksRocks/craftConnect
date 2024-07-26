@@ -35,6 +35,7 @@ export const getTopRankedProjects = async (req, res) => {
           "user.bio": 1,
           "user.role": 1,
           "user._id": 1,
+          "user.profileImg": 1,
         },
       },
     ]);
@@ -223,6 +224,8 @@ export const addComment = async (req, res) => {
       return res.status(404).json({ message: "Project not found" });
     }
 
+    const userr = await User.findById(userId);
+
     const comment = new Comment({
       user: userId,
       project: projectId,
@@ -231,8 +234,33 @@ export const addComment = async (req, res) => {
 
     await comment.save();
 
-    res.status(201).json({ message: "Comment added successfully", comment });
+    res.status(201).json({
+      message: "Comment added successfully",
+      comment,
+      username: userr.username,
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+export const mostUpVoted = async (req, res) => {
+  try {
+    const { page = 1, limit = 20 } = req.query;
+    const projects = await Project.find({})
+      .sort({ upvotes: -1 })
+      .limit(parseInt(limit))
+      .skip((page - 1) * limit)
+      .exec();
+
+    const count = await Project.countDocuments();
+    res.json({
+      projects,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page,
+      hasMore: page * limit < count,
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching projects" });
   }
 };

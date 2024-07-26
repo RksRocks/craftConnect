@@ -1,8 +1,9 @@
 // src/pages/LoginPage.jsx
 import { useState } from "react";
 import axios from "../../api/axios";
-
+import { useNavigate } from "react-router-dom";
 function Login() {
+  const history = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const handleChange = (e) => {
@@ -19,6 +20,7 @@ function Login() {
       });
       alert(response.data.message);
       localStorage.setItem("token", response.data.token); // Save the token in localStorage
+      history("/");
     } catch (error) {
       alert(error.response.data.message);
     }

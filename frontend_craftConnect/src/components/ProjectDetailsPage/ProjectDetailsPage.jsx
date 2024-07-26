@@ -38,9 +38,12 @@ function ProjectDetailsPage() {
   if (!project) {
     return <div>Loading...</div>;
   }
-  const handleCommentAdded = (comment) => {
-    // Add the new comment to the state
-    setComments((prevComments) => [...prevComments, comment]);
+  const handleCommentAdded = (comment, username) => {
+    // Add the new comment with the username to the state
+    setComments((prevComments) => [
+      ...prevComments,
+      { ...comment, user: { username } }, // Include the username in the comment object
+    ]);
   };
 
   return (

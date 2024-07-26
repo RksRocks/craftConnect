@@ -9,7 +9,8 @@ import Footer from "./components/Footer/Footer";
 import ProjectDetailsPage from "./components/ProjectDetailsPage/ProjectDetailsPage";
 import RegisterPage from "./pages/Register/Register";
 import LoginPage from "./pages/Login/Login";
-import ProtectedPage from "./pages/Login/ProtectedPage";
+// import ProtectedPage from "./pages/Login/ProtectedPage";
+import MostUpvoted from "./pages/MostUpVoted/MostUpVoted";
 function App() {
   return (
     <Router>
@@ -20,7 +21,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/protected" element={<ProtectedPage />} />
+          <Route path="/most-upvoted" element={<MostUpvoted />} />
           <Route path="/:id" element={<Profile />} />
           <Route path="/project/:projectId" element={<ProjectDetailsPage />} />
           {/* <Route path="/" element={<ProfileEditable />} /> */}
