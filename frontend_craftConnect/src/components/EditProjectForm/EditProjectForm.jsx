@@ -60,16 +60,16 @@ const EditProjectForm = ({ id, project, onUpdate, onClose }) => {
       const response = await axios.put(
         `https://craftconnect-production.up.railway.app/api/project/${id}/${project._id}`,
         formData,
+        formData,
         {
           headers: {
-            "Content-Type": "application/json", // Set explicitly for clarity
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           withCredentials: true, // Include cookies for authentication
         }
       );
 
-      const data = await response.data;
+      const data = response.data;
 
       if (response.status === 200) {
         toast.success(data.message, {
