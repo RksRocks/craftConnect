@@ -133,7 +133,7 @@ export const addProject = async (req, res) => {
     const { userId, title, description, link } = req.body;
 
     // Check if files were uploaded
-    if (req.files.length === 0) {
+    if (!req.files || req.files.length === 0) {
       return res.status(400).json({ message: "At least one file is required" });
     }
 
