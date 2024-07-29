@@ -38,7 +38,7 @@ const ProjectCard = ({ projects, upVote }) => {
                 </h2>
               </Link>{" "}
               {project.link.length > 0 ? (
-                <Link to={project.link}>
+                <Link to={project.link} target="blank">
                   <FaLink className={"w-5 h-5"} />
                 </Link>
               ) : (
