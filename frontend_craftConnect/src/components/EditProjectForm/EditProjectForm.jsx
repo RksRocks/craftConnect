@@ -56,35 +56,50 @@ const EditProjectForm = ({ id, project, onUpdate, onClose }) => {
       formData.append("images", image);
     }
 
-    const response = await axios.put(
-      `https://craftconnect-production.up.railway.app/api/project/${id}/${project._id}`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "application/json", // Set explicitly for clarity
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        withCredentials: true, // Include cookies for authentication
+    try {
+      const response = await axios.put(
+        `https://craftconnect-production.up.railway.app/api/project/${id}/${project._id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json", // Set explicitly for clarity
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          withCredentials: true, // Include cookies for authentication
+        }
+      );
+
+      const data = await response.data;
+
+      if (response.status === 200) {
+        toast.success(data.message, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+        onUpdate(data.project);
+      } else {
+        toast.error("An error occurred while updating the project.", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       }
-    );
-
-    const data = await response.json();
-
-    if (response.ok) {
-      toast.success(data.message, {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      });
-      onUpdate(data.project);
-    } else {
-      toast.error(data.message, {
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("An error occurred while updating the project.", {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: false,

@@ -51,7 +51,6 @@ export const getTopRankedProjects = async (req, res) => {
 export const addProject = async (req, res) => {
   try {
     const { userId, title, description, link } = req.body;
-  
 
     const imageUploadPromises = req.files.map(
       (file) =>
