@@ -147,11 +147,11 @@ function Profile() {
   };
 
   const handleUpdate = (updatedProject) => {
-    setProjects(
-      projects.map((project) =>
-        project._id === updatedProject._id ? updatedProject : project
-      )
-    );
+   setProjects((prevProjects) =>
+     prevProjects.map((project) =>
+       project._id === updatedProject._id ? updatedProject : project
+     )
+   );
     setEditingProject(null);
   };
   const handleAdd = (newProject) => {

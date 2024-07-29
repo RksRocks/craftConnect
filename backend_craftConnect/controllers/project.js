@@ -51,15 +51,7 @@ export const getTopRankedProjects = async (req, res) => {
 export const addProject = async (req, res) => {
   try {
     const { userId, title, description, link } = req.body;
-
-    if (userId !== req.user.userId) {
-      return res.status(403).json({
-        message: "You are not authorized to add project on others profile",
-      });
-    }
-    if (req.files.length === 0) {
-      return res.status(400).json({ message: "At least one file is required" });
-    } // Upload images to Cloudinary with error handling
+  
 
     const imageUploadPromises = req.files.map(
       (file) =>

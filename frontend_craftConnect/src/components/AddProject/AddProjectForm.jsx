@@ -11,6 +11,20 @@ const AddProjectForm = ({ userId, onAdd, onClose }) => {
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
+    if (files.length == 0) {
+      toast.warn("At least one file is required", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+      return;
+    }
     if (files.length > 3) {
       toast.warn("You can upload a maximum of 3 files.", {
         position: "top-center",
