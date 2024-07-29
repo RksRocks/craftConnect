@@ -12,7 +12,6 @@ const UpvoteButton = ({ projectId, currentUpvotes, setUpvotes }) => {
       try {
         const response = await axios.get(
           `/project/${projectId}/upvote-status`,
-          {},
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
