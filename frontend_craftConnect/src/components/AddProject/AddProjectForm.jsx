@@ -116,7 +116,6 @@ const AddProjectForm = ({ userId, onAdd, onClose }) => {
         });
       }
     } catch (error) {
-      console.error("Error:", error);
       toast.error(error.response.data.message, {
         position: "top-center",
         autoClose: 3000,

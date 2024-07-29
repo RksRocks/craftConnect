@@ -186,7 +186,6 @@ export const addProject = async (req, res) => {
 
     res.status(201).json({ message: "Project added successfully", project });
   } catch (error) {
-    console.error("Error adding project:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -396,7 +395,6 @@ export const getUpvoteStatus = async (req, res) => {
 
     res.json({ upvoted: !!existingUpvote });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: error.message });
   }
 };
