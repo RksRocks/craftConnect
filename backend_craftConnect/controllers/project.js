@@ -221,10 +221,93 @@ export const deleteProject = async (req, res) => {
   }
 };
 
+// export const updateProject = async (req, res) => {
+//   try {
+//     const { projectId } = req.params;
+//     // const { id } = req.user;
+//     const { title, description, link } = req.body;
+
+//     // Find the project
+//     const project = await Project.findById(projectId).populate("user");
+
+//     if (!project) {
+//       return res.status(404).json({ message: "Project not found" });
+//     }
+//     let newImages = [];
+//     if (req.files && req.files.length > 0) {
+//       const imageUploadPromises = req.files.map(
+//         (file) =>
+//           new Promise((resolve, reject) => {
+//             const folderName = "craftconnect"; // Replace with your desired folder name
+//             const publicId = `${folderName}/${file.originalname}`; // Adjust public ID format as needed
+//             cloudinary.uploader
+//               .upload_stream(
+//                 {
+//                   resource_type: "auto",
+//                   folder: folderName,
+//                   public_id: publicId,
+//                 },
+//                 (error, result) => {
+//                   if (error) {
+//                     reject(error);
+//                   } else {
+//                     resolve(result);
+//                   }
+//                 }
+//               )
+//               .end(file.buffer);
+//           })
+//       );
+
+//       const imageResults = await Promise.allSettled(imageUploadPromises);
+//       newImages = imageResults
+//         .filter((result) => result.status === "fulfilled")
+//         .map((result) => result.value)
+//         .map((result) => ({
+//           url: result.secure_url,
+//           public_id: result.public_id,
+//         }));
+
+//       // Handle case where no images were uploaded successfully
+//       if (newImages.length === 0) {
+//         return res.status(400).json({ message: "Failed to upload any images" });
+//       }
+
+//       // Delete previous images from Cloudinary
+//       const oldPublicIds = project.images.map((image) => image.public_id);
+//       await Promise.all(
+//         oldPublicIds.map((publicId) => cloudinary.uploader.destroy(publicId))
+//       );
+//     }
+
+//     // Ensure the user is the owner of the project
+
+//     if (project.user._id.toString() !== req.user.userId) {
+//       return res
+//         .status(403)
+//         .json({ message: "You are not authorized to edit this project" });
+//     }
+
+//     // Update project details
+//     project.title = title || project.title;
+//     project.description = description || project.description;
+//     project.link = link || project.link;
+
+//     if (newImages.length > 0) {
+//       project.images = newImages;
+//     }
+
+//     await project.save();
+
+//     res.status(200).json({ message: "Project updated successfully", project });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// };
 export const updateProject = async (req, res) => {
   try {
     const { projectId } = req.params;
-    // const { id } = req.user;
     const { title, description, link } = req.body;
 
     // Find the project
@@ -233,20 +316,18 @@ export const updateProject = async (req, res) => {
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
     }
+
     let newImages = [];
-    console.log(req.files.length);
     if (req.files && req.files.length > 0) {
       const imageUploadPromises = req.files.map(
         (file) =>
           new Promise((resolve, reject) => {
             const folderName = "craftconnect"; // Replace with your desired folder name
-            const publicId = `${folderName}/${file.originalname}`; // Adjust public ID format as needed
             cloudinary.uploader
               .upload_stream(
                 {
                   resource_type: "auto",
                   folder: folderName,
-                  public_id: publicId,
                 },
                 (error, result) => {
                   if (error) {
@@ -282,7 +363,6 @@ export const updateProject = async (req, res) => {
     }
 
     // Ensure the user is the owner of the project
-
     if (project.user._id.toString() !== req.user.userId) {
       return res
         .status(403)
