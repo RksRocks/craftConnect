@@ -55,7 +55,8 @@ const EditProjectForm = ({ id, project, onUpdate, onClose }) => {
     for (const image of images) {
       formData.append("images", image);
     }
-    console.log(formData);
+    
+    console.log(JSON.stringify(formData));
 
     try {
       const response = await axios.put(

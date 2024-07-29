@@ -234,6 +234,7 @@ export const updateProject = async (req, res) => {
       return res.status(404).json({ message: "Project not found" });
     }
     let newImages = [];
+    console.log(req.files.length);
     if (req.files && req.files.length > 0) {
       const imageUploadPromises = req.files.map(
         (file) =>
