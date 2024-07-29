@@ -21,7 +21,10 @@ const UpvoteButton = ({ projectId, currentUpvotes, setUpvotes }) => {
         );
         setUpvoted(response.data.upvoted);
       } catch (error) {
-        if (error.response?.data?.message == "Token is not valid") {
+        if (
+          error.response?.data?.message == "Token is not valid" ||
+          error.response?.data?.message == "No token, authorization denied"
+        ) {
         } else {
           toast.error(error.response?.data?.message + ":(", {
             position: "top-center",
