@@ -57,7 +57,7 @@ const EditProjectForm = ({ id, project, onUpdate, onClose }) => {
     }
 
     const response = await axios.put(
-      `https://craftconnect-production.up.railway.app/api/project/${id}/${projectId}`,
+      `https://craftconnect-production.up.railway.app/api/project/${id}/${project._id}`,
       formData,
       {
         headers: {
