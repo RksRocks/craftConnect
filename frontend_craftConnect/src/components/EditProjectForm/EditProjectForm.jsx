@@ -55,14 +55,15 @@ const EditProjectForm = ({ id, project, onUpdate, onClose }) => {
     for (const image of images) {
       formData.append("images", image);
     }
+    console.log(formData);
 
     try {
       const response = await axios.put(
         `https://craftconnect-production.up.railway.app/api/project/${id}/${project._id}`,
         formData,
-        formData,
         {
           headers: {
+            "Content-Type": "application/json", // Set explicitly for clarity
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           withCredentials: true, // Include cookies for authentication
