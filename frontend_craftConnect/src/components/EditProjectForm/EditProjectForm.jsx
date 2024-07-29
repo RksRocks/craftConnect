@@ -55,17 +55,15 @@ const EditProjectForm = ({ id, project, onUpdate, onClose }) => {
       formData.append("images", image);
     }
 
-    const response = await fetch(
-      `https://craftconnect-production.up.railway.app/api/project/${id}/${project._id}`,
+    const response = await axios.put(
+      `https://craftconnect-production.up.railway.app/api/project/${id}/${projectId}`,
+      formData,
       {
-        method: "PUT",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json", // Set explicitly for clarity
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-
-        credentials: "include", // Include cookies for authentication
-        body: formData,
+        withCredentials: true, // Include cookies for authentication
       }
     );
 
