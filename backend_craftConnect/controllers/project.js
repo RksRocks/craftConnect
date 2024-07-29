@@ -23,7 +23,7 @@ export const getTopRankedProjects = async (req, res) => {
         $sort: { upvotes: -1 }, // Sort by upvotes in descending order
       },
       {
-        $limit: 5, // Limit to top 5
+        $limit: 10, // Limit to top 5
       },
       {
         $project: {

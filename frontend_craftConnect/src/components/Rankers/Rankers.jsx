@@ -8,7 +8,7 @@ import third from "../../assets/third.png";
 function Rankers({ ranker, rank }) {
   return (
     <div
-      className={`top-ranker-1 bg-gray-100 rounded-md flex flex-col  lg:flex-row items-center justify-center gap-5 p-5 ${
+      className={`top-ranker-1 bg-green-50 shadow-md rounded-md flex flex-col  lg:flex-row items-center justify-center gap-5 p-5 ${
         rank === 1 && "first"
       } ${rank === 2 && "second"} ${rank === 3 && "third"}`}
     >

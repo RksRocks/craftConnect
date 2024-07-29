@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import axios from "../../api/axios";
 import ProjectCard from "../../components/ProjectCard/ProjectCard";
 import { toast, Bounce } from "react-toastify";
+import Loader from "../../components/Loader/Loader";
 const MostUpvotedProjects = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -58,7 +59,7 @@ const MostUpvotedProjects = () => {
   };
 
   return (
-    <div className="pt-28 flex items-center w-[100vw] flex-col pb-16">
+    <div className="pt-28 flex items-center  flex-col pb-16 overflow-x-hidden">
       <h1 className="text-3xl md:text-4xl font-bold underline underline-offset-4 text-[#1b3f3a]  text-center">
         Most Upvoted Projects
       </h1>
@@ -68,7 +69,9 @@ const MostUpvotedProjects = () => {
             <ProjectCard projects={projects} upVote={handleUpVote} />
           </>
         ) : (
-          ""
+          <p className="text-lg font-medium">
+            <Loader />
+          </p>
         )}
       </div>
       {loading && <p className="mt-10">Loading more projects...</p>}

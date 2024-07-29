@@ -8,6 +8,7 @@ import EditUserForm from "../../components/EditUserForm/EditUserForm";
 import Projects from "../../components/Projects/Projects";
 
 import { toast, Bounce } from "react-toastify";
+import Loader from "../../components/Loader/Loader";
 function Profile() {
   const { id } = useParams();
   const [user, setUser] = useState();
@@ -147,11 +148,11 @@ function Profile() {
   };
 
   const handleUpdate = (updatedProject) => {
-   setProjects((prevProjects) =>
-     prevProjects.map((project) =>
-       project._id === updatedProject._id ? updatedProject : project
-     )
-   );
+    setProjects((prevProjects) =>
+      prevProjects.map((project) =>
+        project._id === updatedProject._id ? updatedProject : project
+      )
+    );
     setEditingProject(null);
   };
   const handleAdd = (newProject) => {
@@ -164,8 +165,12 @@ function Profile() {
   return (
     <div className="pt-24 px-5 md:px-14 lg:px-20">
       <div className="flex flex-col">
-        {user && (
+        {user ? (
           <EditUserForm currentUser={user?.user} isLoggedIn={isLoggedIn} />
+        ) : (
+          <p className=" text-lg font-medium">
+            <Loader />
+          </p>
         )}
       </div>
       <div className="flex flex-col w-full ">

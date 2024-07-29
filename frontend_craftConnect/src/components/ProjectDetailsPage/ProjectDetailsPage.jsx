@@ -5,6 +5,7 @@ import UpvoteButton from "../UpvoteButton/UpvoteButton";
 import CommentForm from "../CommentForm/CommentForm";
 import axios from "../../api/axios";
 import { toast, Bounce } from "react-toastify";
+import Loader from "../Loader/Loader";
 function ProjectDetailsPage() {
   const { projectId } = useParams();
   const [project, setProject] = useState(null);
@@ -65,7 +66,11 @@ function ProjectDetailsPage() {
   };
 
   if (!project) {
-    return <div className="text-center pt-24">Loading...</div>;
+    return (
+      <p className="text-lg font-medium">
+        <Loader />
+      </p>
+    );
   }
 
   const calculateTimePassed = (timestampStr) => {

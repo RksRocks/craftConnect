@@ -1,5 +1,4 @@
-import Hero from "./Hero";
-
+const Hero = lazy(() => import("./Hero"));
 function Home() {
   return (
     <div className="px-5 md:px-12 lg:px-20">

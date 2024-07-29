@@ -5,12 +5,13 @@ import Navbar from "./components/Navbar/Navbar";
 import Loader from "./components/Loader/Loader";
 const Home = lazy(() => import("./pages/Home/Home"));
 const Profile = lazy(() => import("./pages/Profile/Profile"));
+const ProjectDetailsPage = lazy(() =>
+  import("./components/ProjectDetailsPage/ProjectDetailsPage")
+);
+const RegisterPage = lazy(() => import("./pages/Register/Register"));
+const MostUpvoted = lazy(() => import("./pages/MostUpVoted/MostUpVoted"));
+const LoginPage = lazy(() => import("./pages/Login/Login"));
 import Footer from "./components/Footer/Footer";
-import ProjectDetailsPage from "./components/ProjectDetailsPage/ProjectDetailsPage";
-import RegisterPage from "./pages/Register/Register";
-import LoginPage from "./pages/Login/Login";
-// import ProtectedPage from "./pages/Login/ProtectedPage";
-import MostUpvoted from "./pages/MostUpVoted/MostUpVoted";
 import { ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function App() {
