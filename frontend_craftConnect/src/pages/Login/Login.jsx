@@ -3,6 +3,8 @@ import { useState } from "react";
 import axios from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 import { toast, Bounce } from "react-toastify";
+import { GoogleLogin } from "@react-oauth/google";
+import { motion } from "framer-motion";
 function Login() {
   const history = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -47,10 +49,87 @@ function Login() {
     }
   };
 
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      const res = await axios.post("/auth/google-login", {
+        credential: credentialResponse.credential,
+      });
+      toast.success(
+        `${
+          res.data.action == "Register"
+            ? `Registered successfully, Please complete your profile`
+            : `Login successfully`
+        } :)`,
+        {
+          position: "top-center",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        }
+      );
+      localStorage.setItem("token", res.data.token);
+      if (res.data.action == "Register") {
+        return history(`/${res.data.user._id}`);
+      }
+      history("/");
+    } catch (error) {
+      toast.error("Google login failed :(", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <div className="w-full max-w-sm p-6 bg-white rounded-lg shadow-md">
+      <motion.div
+        className="w-full max-w-sm p-6 bg-white rounded-lg shadow-md"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
         <h1 className="text-3xl font-bold text-center text-gray-800">Login</h1>
+        <div className="mb-4 mt-5 flex justify-center rounded-full">
+          <GoogleLogin
+            theme="filled_blue"
+            text="signin_with"
+            shape="pill"
+            size="large"
+            width={"220px"}
+            onSuccess={handleGoogleSuccess}
+            onError={() => {
+              console.log("Login Failed");
+              toast.error("Google login failed :(", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+              });
+            }}
+          />
+        </div>
+        <div className="flex mb-3 justify-center items-center">
+          <div className="w-16 h-[2px] bg-[#a5a5a57e] mr-5"></div>
+          <div>or</div>
+          <div className="w-16 h-[2px] bg-[#a5a5a57e] ml-5"></div>
+        </div>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label
@@ -96,7 +175,7 @@ function Login() {
             </button>
           </div>
         </form>
-      </div>
+      </motion.div>
     </div>
   );
 }
