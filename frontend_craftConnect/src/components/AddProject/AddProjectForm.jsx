@@ -83,9 +83,9 @@ const AddProjectForm = ({ userId, onAdd, onClose }) => {
       }
     );
 
-    const data = await response.json();
+    const data = await response.data;
 
-    if (response.ok) {
+    if (response.status === 200) {
       toast.success("Project added successfully", {
         position: "top-center",
         autoClose: 3000,
