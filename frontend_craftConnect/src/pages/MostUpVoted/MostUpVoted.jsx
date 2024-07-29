@@ -9,13 +9,11 @@ const MostUpvotedProjects = () => {
   const [hasMore, setHasMore] = useState(true);
 
   const fetchProjects = useCallback(async () => {
-    if (loading || !hasMore) return;
-
     setLoading(true);
     try {
-      const response = await axios.get("/project/most-upvoted", {
-        params: { page, limit: 20 },
-      });
+      const response = await axios.get(
+        `/project/most-upvoted?page=${currentPage}&limit=20`
+      );
       if (response.data.projects.length < 20) {
         setHasMore(false);
       }
@@ -26,8 +24,7 @@ const MostUpvotedProjects = () => {
         );
         return [...prevProjects, ...newProjects];
       });
-      setHasMore(response.data.hasMore);
-      setPage((prevPage) => prevPage + 1);
+      
     } catch (error) {
       toast.error("Error fetching projects :(", {
         position: "top-center",

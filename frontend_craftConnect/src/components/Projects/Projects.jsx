@@ -67,7 +67,7 @@ function Projects({
                 )}
 
                 {project.link.length > 0 ? (
-                  <Link to={project.link}>
+                  <Link to={project.link} target="blank">
                     <FaLink
                       className={`${isLoggedIn ? "w-5 h-5" : "w-5 h-5"}`}
                     />
