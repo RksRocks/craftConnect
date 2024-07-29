@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { toast, Bounce } from "react-toastify";
 import { IoMdClose } from "react-icons/io";
+import axios from "../../api/axios";
 const EditProjectForm = ({ id, project, onUpdate, onClose }) => {
   const [title, setTitle] = useState(project.title);
   const [description, setDescription] = useState(project.description);
