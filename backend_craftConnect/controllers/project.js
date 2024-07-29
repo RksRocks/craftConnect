@@ -48,12 +48,95 @@ export const getTopRankedProjects = async (req, res) => {
   }
 };
 
+// export const addProject = async (req, res) => {
+//   try {
+//     const { userId, title, description, link } = req.body;
+//     if (!req.files || req.files.length === 0) {
+//       return res.status(400).json({ message: "At least one file is required" });
+//     }
+//     const imageUploadPromises = req.files.map(
+//       (file) =>
+//         new Promise((resolve, reject) => {
+//           const folderName = "craftconnect"; // Replace with your desired folder name
+//           const publicId = `${folderName}/${file.originalname}`; // Adjust public ID format as needed
+//           cloudinary.uploader
+//             .upload_stream(
+//               {
+//                 resource_type: "auto",
+//                 folder: folderName,
+//                 public_id: publicId,
+//               },
+//               (error, result) => {
+//                 if (error) {
+//                   reject(error);
+//                 } else {
+//                   resolve(result);
+//                 }
+//               }
+//             )
+//             .end(file.buffer);
+//         })
+//     );
+
+//     const imageResults = await Promise.allSettled(imageUploadPromises); // Filter out rejected promises (upload errors)
+
+//     const successfulUploads = imageResults
+//       .filter((result) => result.status === "fulfilled")
+//       .map((result) => result.value); // Validate image data
+
+//     if (successfulUploads.length === 0) {
+//       return res.status(400).json({ message: "Failed to upload images" });
+//     }
+
+//     const OptimizedImg = (ImgUrl) => {
+//       const baseUrl = ImgUrl.substring(0, ImgUrl.indexOf("/v"));
+//       const remainingUrl = ImgUrl.substring(ImgUrl.indexOf("/v"));
+//       return baseUrl + "/q_auto" + remainingUrl;
+//     };
+
+//     const images = successfulUploads.map((result) => ({
+//       url: OptimizedImg(result.secure_url),
+//       public_id: result.public_id,
+//     }));
+
+//     // Ensure the portfolio belongs to the user
+//     // const portfolio = await Portfolio.findOne({
+//     //   _id: portfolioId,
+//     //   user: userId,
+//     // });
+//     // if (!portfolio) {
+//     //   return res.status(404).json({
+//     //     message: "Portfolio not found or does not belong to the user",
+//     //   });
+//     // }
+
+//     // Create a new project
+//     const newProject = new Project({
+//       user: userId,
+//       title,
+//       description,
+//       link,
+//       images,
+//     });
+
+//     // Save the project
+//     await newProject.save();
+
+//     res
+//       .status(201)
+//       .json({ message: "Project added successfully", project: newProject });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// };
 export const addProject = async (req, res) => {
   try {
     const { userId, title, description, link } = req.body;
     if (!req.files || req.files.length === 0) {
       return res.status(400).json({ message: "At least one file is required" });
     }
+
     const imageUploadPromises = req.files.map(
       (file) =>
         new Promise((resolve, reject) => {
@@ -78,122 +161,37 @@ export const addProject = async (req, res) => {
         })
     );
 
-    const imageResults = await Promise.allSettled(imageUploadPromises); // Filter out rejected promises (upload errors)
+    const imageResults = await Promise.allSettled(imageUploadPromises);
 
     const successfulUploads = imageResults
       .filter((result) => result.status === "fulfilled")
-      .map((result) => result.value); // Validate image data
+      .map((result) => result.value);
 
     if (successfulUploads.length === 0) {
-      return res.status(400).json({ message: "Failed to upload images" });
+      return res.status(400).json({ message: "Image upload failed" });
     }
 
-    const OptimizedImg = (ImgUrl) => {
-      const baseUrl = ImgUrl.substring(0, ImgUrl.indexOf("/v"));
-      const remainingUrl = ImgUrl.substring(ImgUrl.indexOf("/v"));
-      return baseUrl + "/q_auto" + remainingUrl;
-    };
-
     const images = successfulUploads.map((result) => ({
-      url: OptimizedImg(result.secure_url),
-      public_id: result.public_id,
+      url: result.secure_url,
+      publicId: result.public_id,
     }));
 
-    // Ensure the portfolio belongs to the user
-    // const portfolio = await Portfolio.findOne({
-    //   _id: portfolioId,
-    //   user: userId,
-    // });
-    // if (!portfolio) {
-    //   return res.status(404).json({
-    //     message: "Portfolio not found or does not belong to the user",
-    //   });
-    // }
-
-    // Create a new project
-    const newProject = new Project({
-      user: userId,
+    const project = new Project({
+      userId,
       title,
       description,
       link,
       images,
     });
 
-    // Save the project
-    await newProject.save();
+    await project.save();
 
-    res
-      .status(201)
-      .json({ message: "Project added successfully", project: newProject });
+    res.status(201).json({ message: "Project added successfully", project });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
+    console.error("Error adding project:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
-// export const addProject = async (req, res) => {
-//   try {
-//     const { userId, title, description, link } = req.body;
-
-//     // Check if files were uploaded
-//     if (!req.files || req.files.length === 0) {
-//       return res.status(400).json({ message: "At least one file is required" });
-//     }
-
-//     // Handle file uploads using a loop (alternative to Promise.allSettled)
-//     const images = [];
-//     for (const file of req.files) {
-//       const folderName = "craftconnect"; // Replace with your desired folder name
-//       const publicId = `${folderName}/${file.originalname}`; // Adjust public ID format as needed
-
-//       try {
-//         const result = await cloudinary.uploader
-//           .upload_stream({
-//             resource_type: "auto",
-//             folder: folderName,
-//             public_id: publicId,
-//           })
-//           .end(file.buffer);
-//         images.push({
-//           url: OptimizedImg(result.secure_url),
-//           public_id: result.public_id,
-//         });
-//       } catch (error) {
-//         console.error("Error uploading file:", error);
-//         // You can choose to return an error response here if needed
-//       }
-//     }
-
-//     // Check if any uploads were successful
-//     if (images.length === 0) {
-//       return res.status(400).json({ message: "Failed to upload images" });
-//     }
-
-//     const OptimizedImg = (ImgUrl) => {
-//       const baseUrl = ImgUrl.substring(0, ImgUrl.indexOf("/v"));
-//       const remainingUrl = ImgUrl.substring(ImgUrl.indexOf("/v"));
-//       return baseUrl + "/q_auto" + remainingUrl;
-//     };
-
-//     // Create a new project with the uploaded images
-//     const newProject = new Project({
-//       user: userId,
-//       title,
-//       description,
-//       link,
-//       images,
-//     });
-
-//     // Save the project
-//     await newProject.save();
-
-//     res
-//       .status(201)
-//       .json({ message: "Project added successfully", project: newProject });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: "Server error" });
-//   }
-// };
 
 export const deleteProject = async (req, res) => {
   try {

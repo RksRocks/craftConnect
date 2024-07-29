@@ -1,8 +1,8 @@
-// components/AddProjectForm.jsx
 import { useState } from "react";
 import { toast, Bounce } from "react-toastify";
 import { IoMdClose } from "react-icons/io";
 import axios from "../../api/axios";
+
 const AddProjectForm = ({ userId, onAdd, onClose }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -70,22 +70,22 @@ const AddProjectForm = ({ userId, onAdd, onClose }) => {
     for (const image of images) {
       formData.append("images", image);
     }
+
     try {
       const response = await axios.post(
         "https://craftconnect-production.up.railway.app/api/project/add",
         formData,
         {
           headers: {
-            "Content-Type": "application/json", // Set explicitly for clarity
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           withCredentials: true, // Include cookies for authentication
         }
       );
 
-      const data = await response.data;
+      const data = response.data;
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         toast.success("Project added successfully", {
           position: "top-center",
           autoClose: 3000,
@@ -117,7 +117,7 @@ const AddProjectForm = ({ userId, onAdd, onClose }) => {
       }
     } catch (error) {
       console.error("Error:", error);
-      toast.error(data.message, {
+      toast.error(error.response.data.message, {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: false,
