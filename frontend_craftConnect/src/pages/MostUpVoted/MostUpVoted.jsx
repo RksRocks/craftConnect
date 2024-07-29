@@ -71,7 +71,7 @@ const MostUpvotedProjects = () => {
           ""
         )}
       </div>
-      {loading && <p>Loading more projects...</p>}
+      {loading && <p className="mt-10">Loading more projects...</p>}
       {!loading && hasMore && (
         <button
           onClick={handleLoadMore}
