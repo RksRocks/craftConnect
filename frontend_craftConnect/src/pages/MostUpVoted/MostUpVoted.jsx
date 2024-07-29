@@ -8,7 +8,7 @@ const MostUpvotedProjects = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
-  const fetchProjects = useCallback(async () => {
+  const fetchProjects = useCallback(async (currentPage) => {
     setLoading(true);
     try {
       const response = await axios.get(
@@ -24,7 +24,6 @@ const MostUpvotedProjects = () => {
         );
         return [...prevProjects, ...newProjects];
       });
-      
     } catch (error) {
       toast.error("Error fetching projects :(", {
         position: "top-center",
