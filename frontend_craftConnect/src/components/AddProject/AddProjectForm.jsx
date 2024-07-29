@@ -70,39 +70,53 @@ const AddProjectForm = ({ userId, onAdd, onClose }) => {
     for (const image of images) {
       formData.append("images", image);
     }
+    try {
+      const response = await axios.post(
+        "https://craftconnect-production.up.railway.app/api/project/add",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json", // Set explicitly for clarity
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          withCredentials: true, // Include cookies for authentication
+        }
+      );
 
-    const response = await axios.post(
-      "https://craftconnect-production.up.railway.app/api/project/add",
-      formData,
-      {
-        headers: {
-          "Content-Type": "application/json", // Set explicitly for clarity
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        withCredentials: true, // Include cookies for authentication
+      const data = await response.data;
+
+      if (response.status === 200) {
+        toast.success("Project added successfully", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+        onAdd(data.project);
+        setTitle("");
+        setDescription("");
+        setLink("");
+        setImages([]);
+      } else {
+        toast.error(data.message, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       }
-    );
-
-    const data = await response.data;
-
-    if (response.status === 200) {
-      toast.success("Project added successfully", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      });
-      onAdd(data.project);
-      setTitle("");
-      setDescription("");
-      setLink("");
-      setImages([]);
-    } else {
+    } catch (error) {
+      console.error("Error:", error);
       toast.error(data.message, {
         position: "top-center",
         autoClose: 3000,
