@@ -5,7 +5,7 @@ import Headings from "../../components/Headings/Headings";
 import { useCallback, useEffect, useState } from "react";
 import axios from "../../api/axios";
 import { Link } from "react-router-dom";
-
+import { toast, Bounce } from "react-toastify";
 function Hero() {
   const [rankers, setRankers] = useState([]);
 
@@ -16,7 +16,18 @@ function Hero() {
       );
       setRankers(response.data);
     } catch (error) {
-      console.error("Error fetching top-ranked projects:", error);
+       toast.error("Error fetching data :(", {
+         position: "top-center",
+         autoClose: 3000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         theme: "light",
+         transition: Bounce,
+       });
+       console.error(error);
     }
   }, []);
 
@@ -25,8 +36,8 @@ function Hero() {
   }, [fetchData]);
 
   return (
-    <div className="hero pt-24 flex gap-5">
-      <div className="hero-left w-[75%]">
+    <div className="hero py-24 flex flex-col md:flex-row gap-5">
+      <div className="hero-left w-full md:w-[75%]">
         <div className="top-rankers flex flex-col gap-5 w-full mt-4">
           <Headings heading={"Top Rankers"} link={"/top-ranked"} />
           {rankers?.length > 0 ? (
@@ -43,11 +54,13 @@ function Hero() {
               </Link>
             ))
           ) : (
-            <p>No top rankers available</p>
+            <p className="mt-16 text-lg font-medium">
+              No top rankers available
+            </p>
           )}
         </div>
       </div>
-      <div className="hero-right w-[25%]">
+      <div className="hero-right w-full md:w-[25%]">
         <div className="project-idea flex flex-col gap-5 w-full mt-4">
           <Headings heading={"Project Ideas"} link={"/projects"} />
           <ProjectIdeas />

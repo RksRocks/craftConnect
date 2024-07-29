@@ -15,7 +15,7 @@ import userRoutes from "./routes/users.js";
 import projectRoutes from "./routes/project.js";
 import dashboardRoutes from "./routes/dashboard.js";
 import authRoutes from "./routes/auth.js";
-import { isAuthenticated } from "./middlewares/auth.js";
+// import { isAuthenticated } from "./middlewares/auth.js";
 // import User from "./models/Users.js";
 // import Project from "./models/Projects.js";
 // import Comment from "./models/Comments.js";
@@ -66,9 +66,9 @@ app.use("/api/user", userRoutes);
 app.use("/api/project", projectRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/auth", authRoutes);
-app.get("/api/protected", isAuthenticated, (req, res) => {
-  res.json({ message: "This is a protected route", user: req.user });
-});
+// app.get("/api/protected", isAuthenticated, (req, res) => {
+//   res.json({ message: "This is a protected route", user: req.user });
+// });
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`App Is Listening On Port ${port}!`);

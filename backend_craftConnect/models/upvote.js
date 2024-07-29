@@ -1,21 +1,22 @@
-import { Schema, model } from 'mongoose';
+import pkg from "mongoose";
+const { Schema, model, models } = pkg;
 
 const UpvoteSchema = new Schema({
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-    },
-    project: {
-        type: Schema.Types.ObjectId,
-        ref: 'Project',
-        required: true,
-    },
-    created_at: {
-        type: Date,
-        default: Date.now,
-    }
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  project: {
+    type: Schema.Types.ObjectId,
+    ref: "Project",
+    required: true,
+  },
+  created_at: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-const Upvote = model('Upvote', UpvoteSchema);
+const Upvote = models.Upvote || model("Upvote", UpvoteSchema);
 export default Upvote;

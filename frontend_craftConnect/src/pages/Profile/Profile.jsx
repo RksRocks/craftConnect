@@ -1,19 +1,21 @@
 import { useCallback, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import axios from "../../api/axios";
-import { BiUpvote } from "react-icons/bi";
+import { jwtDecode } from "jwt-decode";
 import AddProjectForm from "../../components/AddProject/AddProjectForm";
 import EditProjectForm from "../../components/EditProjectForm/EditProjectForm";
 import EditUserForm from "../../components/EditUserForm/EditUserForm";
-import UpvoteButton from "../../components/UpvoteButton/UpvoteButton";
-import { jwtDecode } from "jwt-decode";
+import Projects from "../../components/Projects/Projects";
+
+import { toast, Bounce } from "react-toastify";
 function Profile() {
   const { id } = useParams();
   const [user, setUser] = useState();
   const [projects, setProjects] = useState([]);
   const [editingProject, setEditingProject] = useState(null);
-  const [addProject, setAddProject] = useState(0);
+  const [addProject, setAddProject] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(0);
+
   const fetchData = useCallback(async () => {
     try {
       setIsLoggedIn(0);
@@ -37,49 +39,101 @@ function Profile() {
         return setIsLoggedIn(1);
         // history(`/${decoded.userId}`);
       } catch (error) {
-        console.error("Failed to decode token:", error);
+        toast.error("Failed to decode token :(", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+        console.error(error);
         return setIsLoggedIn(1);
       }
     } catch (error) {
-      console.error("Error fetching events :(");
+      toast.error("Error fetching user data :(", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+      console.error(error);
     }
   }, [id]);
 
   const handleDelete = async (projectId) => {
-    const response = await fetch(
-      `https://craftconnect-production.up.railway.app/api/project/${id}/${projectId}`,
-      {
-        method: "DELETE",
-        credentials: "include", // Include cookies for authentication
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+    try {
+      const response = await fetch(
+        `https://craftconnect-production.up.railway.app/api/project/${id}/${projectId}`,
+        {
+          method: "DELETE",
+          credentials: "include", // Include cookies for authentication
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (
+        response.data.message ===
+        "You are not authorized to delete this project"
+      ) {
+        toast.warn(response.data.message, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+        return;
       }
-    );
-
-    const data = await response.json();
-    if (data.message == "You are not authorized to delete this project") {
-      return null;
+      toast.success(response.data.message, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+      setProjects((prevProjects) =>
+        prevProjects.filter((project) => project._id !== projectId)
+      );
+    } catch (error) {
+      toast.error(`${"Error deleting project :("}`, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+      console.error(error);
     }
-    setProjects((prevProjects) =>
-      prevProjects.filter((project) => project._id !== projectId)
-    );
-
-    // if (response.ok) {
-    //   // onDelete(project._id);
-    // } else {
-    //   alert(data.message);
-    // }
   };
 
   const handleEdit = (project) => {
-    if (editingProject != project) {
-      return setEditingProject(project);
-    }
-    if (editingProject) {
-      setEditingProject(null);
-    } else {
+    if (editingProject !== project) {
       setEditingProject(project);
+    } else {
+      setEditingProject(null);
     }
   };
 
@@ -93,99 +147,94 @@ function Profile() {
   };
   const handleAdd = (newProject) => {
     setProjects((prevProjects) => [...prevProjects, newProject]);
+    setAddProject(null);
   };
   useEffect(() => {
     fetchData();
   }, [fetchData]);
   return (
-    <div className="pt-24">
+    <div className="pt-24 px-5 md:px-14 lg:px-20">
       <div className="flex flex-col">
         {user && (
           <EditUserForm currentUser={user?.user} isLoggedIn={isLoggedIn} />
         )}
       </div>
-      <div className="flex flex-col">
-        <div className="flex gap-16">
-          <h1>Projects</h1>
+      <div className="flex flex-col w-full ">
+        <div className="flex justify-between px-2 md:px-8 items-center w-full">
+          <div className="md:w-1/4 hidden md:flex"></div>
+          <h1 className="text-4xl font-bold underline underline-offset-4 md:w-1/4 text-center">
+            Projects
+          </h1>
           {isLoggedIn ? (
-            <button
-              className="border-2"
-              onClick={() => setAddProject(!addProject)}
-            >
-              Add Project
-            </button>
+            <div className="md:w-1/4 flex justify-end">
+              <button
+                className="border-[2px] text-white border-[#fff] py-1 md:px-4 rounded-lg font-semibold
+            bg-[#388277] hover:border-[#fff] hover:bg-[#388277ef] transition-all duration-300 hover:shadow-2xl z-10 text-xs px-3 md:text-md"
+                onClick={() => setAddProject(!addProject)}
+              >
+                + Add Project
+              </button>
+            </div>
           ) : (
-            ""
+            <div className="md:w-1/4"></div>
           )}
         </div>
-        {projects.map((project, index) => (
-          <div key={index} className="flex flex-col">
-            <p>{project.title}</p>
-            <Link to={`/project/${project._id}`}>
-              <span className="bg-amber-400">Link</span>
-            </Link>
-            <p>{project.description}</p>
-            <p>{project.link}</p>
-            <div className="flex">
-              <UpvoteButton
-                projectId={project._id}
-                currentUpvotes={project.upvotes}
-                setUpvotes={(upvotes, projectId) => {
-                  setProjects((prevProjects) =>
-                    prevProjects.map((project) =>
-                      project._id === projectId
-                        ? { ...project, upvotes: upvotes }
-                        : project
-                    )
-                  );
-                }}
+        <div className="relative w-full">
+          {projects.length > 0 ? (
+            <>
+              <Projects
+                projects={projects}
+                isLoggedIn={isLoggedIn}
+                handleDelete={handleDelete}
+                handleEdit={handleEdit}
+                setProjects={setProjects}
               />
-            </div>
-            {isLoggedIn ? (
-              <>
-                <button
-                  className="bg-blue-500"
-                  onClick={() => handleDelete(project._id)}
-                >
-                  Delete Project
-                </button>
-                <button
-                  className="bg-red-500"
-                  onClick={() => {
-                    handleEdit(project);
-                  }}
-                >
-                  Edit Project
-                </button>
-              </>
-            ) : (
-              ""
-            )}
-          </div>
-        ))}
+              <div
+                className={`edit-project-form-container w-full z-20 ${
+                  editingProject ? "flex" : "hidden"
+                }`}
+              >
+                {isLoggedIn
+                  ? projects.map(
+                      (project) =>
+                        editingProject &&
+                        editingProject._id === project._id && (
+                          <EditProjectForm
+                            id={id}
+                            key={id}
+                            project={project}
+                            onUpdate={handleUpdate}
+                            onClose={() => setEditingProject(null)}
+                          />
+                        )
+                    )
+                  : ""}
+              </div>
+            </>
+          ) : (
+            <p className="text-center font-medium text-lg mt-16">No Projects</p>
+          )}
+        </div>
       </div>
-      {isLoggedIn ? (
-        addProject ? (
-          <AddProjectForm userId={user?.user._id} onAdd={handleAdd} />
+      <div
+        className={`edit-project-form-container z-20 ${
+          addProject ? "flex" : "hidden"
+        }`}
+      >
+        {isLoggedIn ? (
+          addProject ? (
+            <AddProjectForm
+              userId={user?.user._id}
+              onAdd={handleAdd}
+              onClose={() => setAddProject(null)}
+            />
+          ) : (
+            ""
+          )
         ) : (
           ""
-        )
-      ) : (
-        ""
-      )}
-      {isLoggedIn
-        ? projects.map((project) => (
-            <div key={project._id}>
-              {editingProject && editingProject._id === project._id && (
-                <EditProjectForm
-                  id={id}
-                  project={project}
-                  onUpdate={handleUpdate}
-                />
-              )}
-            </div>
-          ))
-        : ""}
+        )}
+      </div>
     </div>
   );
 }

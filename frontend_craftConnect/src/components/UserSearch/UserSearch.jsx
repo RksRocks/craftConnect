@@ -1,25 +1,59 @@
 import { useState, useCallback } from "react";
 import axios from "../../api/axios"; // Adjust import according to your setup
 import { debounce } from "lodash";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { toast, Bounce } from "react-toastify";
 
 const SearchBox = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const searchRef = useRef(null);
   const history = useNavigate();
+
+  const handleClickOutside = (event) => {
+    if (searchRef.current && !searchRef.current.contains(event.target)) {
+      setQuery("");
+      setResults([]);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [searchRef]);
+
   const fetchResults = useCallback(
     debounce(async (query) => {
       if (query.trim() === "") {
         setResults([]);
         return;
       }
-
+      setIsLoading(true);
+      setIsError(false);
       try {
         const response = await axios.get("/user/search", { params: { query } });
 
         setResults(response.data || []); // Ensure results is always an array
       } catch (error) {
-        console.error("Error fetching search results:", error);
+        toast.error("Error fetching search results :(", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+        console.error(error);
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
       }
     }, 700), // Throttle API calls, 300ms delay
     [] // No dependencies, since debounce does not change
@@ -32,35 +66,39 @@ const SearchBox = () => {
   };
 
   return (
-    <div className="relative flex justify-center">
+    <div ref={searchRef} className="relative flex md:justify-center">
       <input
         type="text"
         value={query}
         onChange={handleChange}
+        className="py-2 bg-[#000] md:bg-white md:placeholder:text-gray-400  placeholder:text-[#fff] text-black rounded-full w-full  px-5 placeholder:text-sm"
         placeholder="Search users by username or email"
       />
 
       <ul
         className={`absolute ${
-          results.length == 0 && "hidden"
-        } top-full text-center text-white w-[400px] bg-[#424242] py-5 px-5`}
+          !results.length && !query && "hidden"
+        } top-[130%] text-center font-semibold rounded-xl text-[#336d65] w-full md:w-[400px] bg-[#e6e6e6] border-[3px] py-5 px-5 flex flex-col gap-1 shadow-2xl text-xs md:text-base`}
       >
+        {isLoading && <li className="w-full">Loading...</li>}
+        {isError && <li className="w-full">Error fetching results</li>}
         {results && results.length > 0 ? (
           results.map((user) => (
             <li
+              className="w-full cursor-pointer border-4 border-gray-300 rounded-md py-1 flex gap-2 items-center justify-center"
               onClick={() => {
-                setResults([]);
                 setQuery("");
+                setResults([]);
                 history(`/${user._id}`);
               }}
               key={user._id}
-              className="w-full cursor-pointer"
             >
-              {user.username} - {user.email}
+              <img src={user.profileImg} className="w-7 h-7" alt="" />{" "}
+              {user.username}
             </li>
           ))
         ) : (
-          <li>No results found</li>
+          <li className="w-full">No results found</li>
         )}
       </ul>
     </div>

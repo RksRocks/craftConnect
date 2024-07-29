@@ -11,10 +11,25 @@ import RegisterPage from "./pages/Register/Register";
 import LoginPage from "./pages/Login/Login";
 // import ProtectedPage from "./pages/Login/ProtectedPage";
 import MostUpvoted from "./pages/MostUpVoted/MostUpVoted";
+import { ToastContainer, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <Router>
       <Navbar />
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
       <Suspense fallback={<Loader />}>
         <Routes>
           {" "}

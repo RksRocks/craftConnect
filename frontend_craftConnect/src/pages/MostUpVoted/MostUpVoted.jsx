@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "../../api/axios";
 import ProjectCard from "../../components/ProjectCard/ProjectCard";
-
+import { toast, Bounce } from "react-toastify";
 const MostUpvotedProjects = () => {
   const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [loading, setLoading] = useState(false);
 
   const fetchProjects = useCallback(async () => {
     if (loading || !hasMore) return;
@@ -16,6 +16,9 @@ const MostUpvotedProjects = () => {
       const response = await axios.get("/project/most-upvoted", {
         params: { page, limit: 20 },
       });
+      if (response.data.projects.length < 20) {
+        setHasMore(false);
+      }
       setProjects((prevProjects) => {
         const existingIds = new Set(prevProjects.map((p) => p._id));
         const newProjects = response.data.projects.filter(
@@ -26,39 +29,30 @@ const MostUpvotedProjects = () => {
       setHasMore(response.data.hasMore);
       setPage((prevPage) => prevPage + 1);
     } catch (error) {
-      console.error("Error fetching projects:", error);
+      toast.error("Error fetching projects :(", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+      console.error(error);
     }
     setLoading(false);
-  }, [page, hasMore, loading]);
-
-  const handleScroll = useCallback(() => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop <
-      document.documentElement.offsetHeight - 100
-    )
-      return;
-    fetchProjects();
-  }, [fetchProjects]);
-
+  }, []);
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [handleScroll]);
+    fetchProjects(page);
+  }, [page, fetchProjects]);
 
-  useEffect(() => {
-    fetchProjects();
-  }, [fetchProjects]);
-
-  //   const handleUpVote = (upvotes, projectId) => {
-  //     console.log(upvotes, projectId);
-  //     setProjects((prevProjects) =>
-  //       prevProjects.map((project) =>
-  //         project._id === projectId ? { ...project, upvotes: upvotes } : project
-  //       )
-  //     );
-  //     };
+  const handleLoadMore = () => {
+    if (!loading && hasMore) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
   const handleUpVote = (upvotes, projectId) => {
     setProjects((prevProjects) =>
       prevProjects.map((project) =>
@@ -68,18 +62,30 @@ const MostUpvotedProjects = () => {
   };
 
   return (
-    <div>
-      <h1>Most Upvoted Projects</h1>
-      <div className="project-list">
-        {projects.map((project) => (
-          <ProjectCard
-            key={project._id}
-            project={project}
-            upVote={handleUpVote}
-          />
-        ))}
+    <div className="pt-28 flex items-center w-[100vw] flex-col pb-16">
+      <h1 className="text-3xl md:text-4xl font-bold underline underline-offset-4 text-[#1b3f3a]  text-center">
+        Most Upvoted Projects
+      </h1>
+      <div className="project-list relative w-full">
+        {projects.length > 0 ? (
+          <>
+            <ProjectCard projects={projects} upVote={handleUpVote} />
+          </>
+        ) : (
+          ""
+        )}
       </div>
       {loading && <p>Loading more projects...</p>}
+      {!loading && hasMore && (
+        <button
+          onClick={handleLoadMore}
+          className="border-[2px]  text-white border-[#fff] py-2 px-8 rounded-lg font-semibold
+            bg-[#388277] hover:border-[#fff] hover:bg-[#388277ef] transition-all duration-300 hover:shadow-2xl"
+        >
+          Load More
+        </button>
+      )}
+      {!hasMore && <p>No more projects to load</p>}
     </div>
   );
 };
