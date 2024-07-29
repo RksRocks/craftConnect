@@ -177,7 +177,7 @@ export const addProject = async (req, res) => {
     }));
 
     const project = new Project({
-      userId,
+      user: userId, // Correctly mapping userId to user
       title,
       description,
       link,
