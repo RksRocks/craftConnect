@@ -141,13 +141,11 @@ export const addProject = async (req, res) => {
       (file) =>
         new Promise((resolve, reject) => {
           const folderName = "craftconnect"; // Replace with your desired folder name
-          const publicId = `${folderName}/${file.originalname}`; // Adjust public ID format as needed
           cloudinary.uploader
             .upload_stream(
               {
                 resource_type: "auto",
                 folder: folderName,
-                public_id: publicId,
               },
               (error, result) => {
                 if (error) {
@@ -173,7 +171,7 @@ export const addProject = async (req, res) => {
 
     const images = successfulUploads.map((result) => ({
       url: result.secure_url,
-      publicId: result.public_id,
+      public_id: result.public_id,
     }));
 
     const project = new Project({
