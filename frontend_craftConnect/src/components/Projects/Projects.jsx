@@ -42,9 +42,9 @@ function Projects({
                 to={`/project/${project._id}`}
                 className="flex justify-between w-full items-center"
               >
-                 <h2 className="font-bold text-xl text-white/90 hover:underline">
+                <h2 className="font-bold text-xl text-white/90 hover:underline">
                   {project.title}
-                </h1>
+                </h2>
               </Link>
               <div className="flex items-center gap-x-3">
                 {isLoggedIn ? (
@@ -68,7 +68,7 @@ function Projects({
 
                 {project.link.length > 0 ? (
                   <Link to={project.link} target="blank">
-                   <FaLink
+                    <FaLink
                       className={`text-white/90 ${
                         isLoggedIn ? "w-5 h-5" : "w-5 h-5 "
                       }`}
@@ -76,7 +76,7 @@ function Projects({
                   </Link>
                 ) : (
                   <Link>
-                <FaLinkSlash
+                    <FaLinkSlash
                       className={`text-white/90 cursor-not-allowed ${
                         isLoggedIn ? "w-5 h-5" : "w-5 h-5 "
                       }`}
@@ -86,7 +86,7 @@ function Projects({
               </div>
             </div>
 
-             <p className="font-medium text-base scroll-auto h-[41%] overflow-y-scroll w-full bar project-desc  text-white/80 ">
+            <p className="font-medium text-base scroll-auto h-[41%] overflow-y-scroll w-full bar project-desc  text-white/80 ">
               {project.description}
             </p>
             {/* <p>{project.link}</p> */}
@@ -100,7 +100,7 @@ function Projects({
               >
                 Read More
               </button>
-               <div className="flex gap-4 items-center text-white/90">
+              <div className="flex gap-4 items-center text-white/90">
                 <UpvoteButton
                   projectId={project._id}
                   currentUpvotes={project.upvotes}
@@ -115,7 +115,7 @@ function Projects({
                   }}
                 />
                 <Link to={`/project/${project._id}`}>
-                <VscCommentUnresolved className="w-5 h-5 hover:text-[#388277]" />
+                  <VscCommentUnresolved className="w-5 h-5 hover:text-[#388277]" />
                 </Link>
               </div>
             </div>
