@@ -91,14 +91,14 @@ function Navbar() {
             <>
               <Link
                 to={"/login"}
-                className="font-bold"
+                className="font-bold hover:text-[#388277]"
                 onClick={() => setNavToggle(0)}
               >
                 Login
               </Link>
               <Link
                 to={"/register"}
-                className="font-bold"
+                className="font-bold hover:text-[#388277]"
                 onClick={() => setNavToggle(0)}
               >
                 Register
@@ -130,10 +130,10 @@ function Navbar() {
 
           {!token ? (
             <>
-              <Link to={"/login"} className="font-bold">
+              <Link to={"/login"} className="font-bold hover:text-[#388277]">
                 Login
               </Link>
-              <Link to={"/register"} className="font-bold">
+              <Link to={"/register"} className="font-bold hover:text-[#388277]">
                 Register
               </Link>
             </>
