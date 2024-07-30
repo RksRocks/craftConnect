@@ -89,10 +89,18 @@ function Navbar() {
 
           {!token ? (
             <>
-              <Link to={"/login"} onClick={() => setNavToggle(0)}>
+              <Link
+                to={"/login"}
+                className="font-bold"
+                onClick={() => setNavToggle(0)}
+              >
                 Login
               </Link>
-              <Link to={"/register"} onClick={() => setNavToggle(0)}>
+              <Link
+                to={"/register"}
+                className="font-bold"
+                onClick={() => setNavToggle(0)}
+              >
                 Register
               </Link>
             </>
@@ -122,8 +130,12 @@ function Navbar() {
 
           {!token ? (
             <>
-              <Link to={"/login"}>Login</Link>
-              <Link to={"/register"}>Register</Link>
+              <Link to={"/login"} className="font-bold">
+                Login
+              </Link>
+              <Link to={"/register"} className="font-bold">
+                Register
+              </Link>
             </>
           ) : (
             <LogoutButton />
