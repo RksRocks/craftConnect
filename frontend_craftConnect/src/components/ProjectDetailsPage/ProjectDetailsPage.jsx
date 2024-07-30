@@ -98,18 +98,20 @@ function ProjectDetailsPage() {
     <div className="container mx-auto px-4 py-28 text-white/80">
       <div className="flex flex-col h-[300px] w-full lg:w-[40%] rounded-lg overflow-hidden bg-[#121212]">
         <div className="flex flex-col lg:flex-row">
-          <div className="relative slide-container   project_imgs !h-[100%] overflow-hidden">
-            <Fade arrows={false} pauseOnHover={false} duration={3000}>
-              {project?.images.map((img, index) => (
-                <img
-                  key={index}
-                  loading="lazy"
-                  src={img.url}
-                  alt={img.public_id}
-                  className="w-full h-[100%] !object-contain"
-                />
-              ))}
-            </Fade>
+          <div className="flex flex-col h-[300px] w-full lg:w-[40%] rounded-lg overflow-hidden bg-[#121212]">
+            <div className="relative slide-container   project_imgs !h-[100%] overflow-hidden">
+              <Fade arrows={false} pauseOnHover={false} duration={3000}>
+                {project?.images.map((img, index) => (
+                  <img
+                    key={index}
+                    loading="lazy"
+                    src={img.url}
+                    alt={img.public_id}
+                    className="w-full h-[100%] !object-contain"
+                  />
+                ))}
+              </Fade>
+            </div>
           </div>
         </div>
         <div className="lg:px-8 mt-8 lg:mt-0 lg:py-3">
