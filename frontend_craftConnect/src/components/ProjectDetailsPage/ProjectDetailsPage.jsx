@@ -95,8 +95,8 @@ function ProjectDetailsPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-28 text-white/80">
-      <div className="flex flex-col h-[300px] w-full lg:w-[40%] rounded-lg overflow-hidden bg-[#121212]">
+    <>
+      <div className="container mx-auto px-4 py-28 text-white/80">
         <div className="flex flex-col lg:flex-row">
           <div className="flex flex-col h-[300px] w-full lg:w-[40%] rounded-lg overflow-hidden bg-[#121212]">
             <div className="relative slide-container   project_imgs !h-[100%] overflow-hidden">
@@ -113,80 +113,82 @@ function ProjectDetailsPage() {
               </Fade>
             </div>
           </div>
-        </div>
-        <div className="lg:px-8 mt-8 lg:mt-0 lg:py-3">
-          <h1 className="text-2xl md:text-4xl font-bold mb-4 text-white/90">
-            {project.title}
-          </h1>
-          <p className="text-white/80 mb-4 text-md md:text-lg font-normal">
-            {project.description}
-          </p>
-          <p className="text-white/80 mb-5 text-md md:text-lg font-semibold">
-            Project Link -{" "}
-            <Link to={project.link} target="blank" className="text-[#388277]">
-              {project.link}
-            </Link>
-          </p>
-          <UpvoteButton
-            projectId={project._id}
-            currentUpvotes={project.upvotes}
-            setUpvotes={(upvotes) => setProject({ ...project, upvotes })}
-            upvoted={upvoted}
-            setUpvoted={setUpvoted}
-          />
-          <div className="flex items-center my-8">
-            <h2 className="text-md md:text-xl font-medium mr-4 text-white/90">
-              Created by:
-            </h2>
-            <div className="flex flex-col space-y-1">
-              <p className="text-white/80 text-lg font-semibold underline underline-offset-2 flex gap-x-2 items-center">
-                <img src={user.profileImg} alt="" className="w-7 h-7" />
-                <Link to={`/${user._id}`}>{user.username}</Link>
-              </p>
-              <p className="text-white/60 text-sm font-normal">
-                <span className="font-semibold">Role:</span> {user.role}
-              </p>
-              <p className="text-white/60 text-sm font-normal">{user.bio}</p>
+          <div className="lg:px-8 mt-8 lg:mt-0 lg:py-3">
+            <h1 className="text-2xl md:text-4xl font-bold mb-4 text-white/90">
+              {project.title}
+            </h1>
+            <p className="text-white/80 mb-4 text-md md:text-lg font-normal">
+              {project.description}
+            </p>
+            <p className="text-white/80 mb-5 text-md md:text-lg font-semibold">
+              Project Link -{" "}
+              <Link to={project.link} target="blank" className="text-[#388277]">
+                {project.link}
+              </Link>
+            </p>
+            <UpvoteButton
+              projectId={project._id}
+              currentUpvotes={project.upvotes}
+              setUpvotes={(upvotes) => setProject({ ...project, upvotes })}
+              upvoted={upvoted}
+              setUpvoted={setUpvoted}
+            />
+            <div className="flex items-center my-8">
+              <h2 className="text-md md:text-xl font-medium mr-4 text-white/90">
+                Created by:
+              </h2>
+              <div className="flex flex-col space-y-1">
+                <p className="text-white/80 text-lg font-semibold underline underline-offset-2 flex gap-x-2 items-center">
+                  <img src={user.profileImg} alt="" className="w-7 h-7" />
+                  <Link to={`/${user._id}`}>{user.username}</Link>
+                </p>
+                <p className="text-white/60 text-sm font-normal">
+                  <span className="font-semibold">Role:</span> {user.role}
+                </p>
+                <p className="text-white/60 text-sm font-normal">{user.bio}</p>
+              </div>
             </div>
           </div>
         </div>
+        <CommentForm
+          projectId={project._id}
+          onCommentAdded={handleCommentAdded}
+        />
+        <h3 className="text-xl font-medium mt-8 mb-4 text-white/90">
+          Comments
+        </h3>
+        <ul className="list-disc space-y-2 mt-8">
+          {comments.map((comment) => (
+            <div
+              key={comment._id}
+              className="flex items-center gap-5 border-b-2 p-2 pb-4 border-gray-700"
+            >
+              <Link to={`/${comment.user._id}`}>
+                <img
+                  src={comment?.user.profileImg}
+                  alt="user profile"
+                  className="w-10 h-10"
+                />
+              </Link>
+              <div className="flex flex-col">
+                <p className="flex flex-col">
+                  <Link
+                    to={`/${comment.user._id}`}
+                    className="text-white/90 font-semibold text-lg"
+                  >
+                    {comment.user.username}
+                  </Link>
+                  <span className="-mt-2 text-white/60">
+                    {calculateTimePassed(comment.created_at)}
+                  </span>
+                </p>
+                <p className="text-white/80">{comment.content}</p>
+              </div>
+            </div>
+          ))}
+        </ul>
       </div>
-      <CommentForm
-        projectId={project._id}
-        onCommentAdded={handleCommentAdded}
-      />
-      <h3 className="text-xl font-medium mt-8 mb-4 text-white/90">Comments</h3>
-      <ul className="list-disc space-y-2 mt-8">
-        {comments.map((comment) => (
-          <div
-            key={comment._id}
-            className="flex items-center gap-5 border-b-2 p-2 pb-4 border-gray-700"
-          >
-            <Link to={`/${comment.user._id}`}>
-              <img
-                src={comment?.user.profileImg}
-                alt="user profile"
-                className="w-10 h-10"
-              />
-            </Link>
-            <div className="flex flex-col">
-              <p className="flex flex-col">
-                <Link
-                  to={`/${comment.user._id}`}
-                  className="text-white/90 font-semibold text-lg"
-                >
-                  {comment.user.username}
-                </Link>
-                <span className="-mt-2 text-white/60">
-                  {calculateTimePassed(comment.created_at)}
-                </span>
-              </p>
-              <p className="text-white/80">{comment.content}</p>
-            </div>
-          </div>
-        ))}
-      </ul>
-    </div>
+    </>
   );
 }
 
