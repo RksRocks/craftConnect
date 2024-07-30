@@ -17,11 +17,11 @@ function Projects({
 }) {
   const history = useNavigate();
   return (
-    <div className="flex flex-wrap justify-center px-3 md:px-5 items-center my-16 gap-y-16 gap-x-20">
+    <div className="flex flex-wrap justify-center px-3 md:px-5 items-center my-16 gap-y-16 gap-x-20 bg-[#0b0b0c]">
       {projects.map((project) => (
         <div
           key={project._id}
-          className="flex flex-col h-[480px] w-full lg:w-[28%] rounded-lg overflow-hidden shadow-lg bg-green-100"
+          className="flex flex-col h-[480px] w-full lg:w-[28%] rounded-lg overflow-hidden bg-[#121212] shadow-2xl shadow-white/5"
         >
           <div className="relative slide-container   project_imgs !h-[45%] overflow-hidden">
             <Fade arrows={false} pauseOnHover={false} duration={3000}>
@@ -36,13 +36,13 @@ function Projects({
               ))}
             </Fade>
           </div>
-          <div className="bg-[#F2F0EF] h-[55%] p-5 text-[#388277] flex flex-col justify-between">
+          <div className="bg-[#0e0e0e] h-[55%] p-5  flex flex-col justify-between">
             <div className="link flex items-center justify-between mb-3">
               <Link
                 to={`/project/${project._id}`}
                 className="flex justify-between w-full items-center"
               >
-                <h1 className="font-bold text-xl hover:underline">
+                 <h2 className="font-bold text-xl text-white/90 hover:underline">
                   {project.title}
                 </h1>
               </Link>
@@ -68,21 +68,25 @@ function Projects({
 
                 {project.link.length > 0 ? (
                   <Link to={project.link} target="blank">
-                    <FaLink
-                      className={`${isLoggedIn ? "w-5 h-5" : "w-5 h-5"}`}
+                   <FaLink
+                      className={`text-white/90 ${
+                        isLoggedIn ? "w-5 h-5" : "w-5 h-5 "
+                      }`}
                     />
                   </Link>
                 ) : (
                   <Link>
-                    <FaLinkSlash
-                      className={`${isLoggedIn ? "w-5 h-5" : "w-5 h-5"}`}
+                <FaLinkSlash
+                      className={`text-white/90 cursor-not-allowed ${
+                        isLoggedIn ? "w-5 h-5" : "w-5 h-5 "
+                      }`}
                     />
                   </Link>
                 )}
               </div>
             </div>
 
-            <p className="font-medium text-base  scroll-auto h-[41%] overflow-y-scroll w-full bar project-desc ">
+             <p className="font-medium text-base scroll-auto h-[41%] overflow-y-scroll w-full bar project-desc  text-white/80 ">
               {project.description}
             </p>
             {/* <p>{project.link}</p> */}
@@ -92,11 +96,11 @@ function Projects({
                 onClick={() => {
                   history(`/project/${project._id}`);
                 }}
-                className="bg-[#388277]  text-white font-semibold  z-10 py-1 rounded-md w-[40%]"
+                className="bg-[#214e47]  hover:bg-[#286058ef] text-base  text-white/90 font-semibold  z-10 py-1 rounded-md w-[40%]"
               >
                 Read More
               </button>
-              <div className="flex gap-4 items-center">
+               <div className="flex gap-4 items-center text-white/90">
                 <UpvoteButton
                   projectId={project._id}
                   currentUpvotes={project.upvotes}
@@ -111,7 +115,7 @@ function Projects({
                   }}
                 />
                 <Link to={`/project/${project._id}`}>
-                  <VscCommentUnresolved className="w-5 h-5" />
+                <VscCommentUnresolved className="w-5 h-5 hover:text-[#388277]" />
                 </Link>
               </div>
             </div>

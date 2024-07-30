@@ -1,4 +1,5 @@
 // controllers/auth.js
+import "dotenv/config";
 import jwt from "jsonwebtoken";
 import User from "../models/users.js";
 import { OAuth2Client } from "google-auth-library";

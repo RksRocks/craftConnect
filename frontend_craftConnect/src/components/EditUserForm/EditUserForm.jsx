@@ -129,7 +129,7 @@ const EditUserForm = ({ currentUser, isLoggedIn }) => {
                 handleEditClick();
               }}
             >
-              <FaRegEdit className="w-6 h-6" />
+              <FaRegEdit className="w-6 h-6 text-white/90" />
             </button>
           ) : (
             ""
@@ -137,10 +137,10 @@ const EditUserForm = ({ currentUser, isLoggedIn }) => {
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row w-full justify-between mb-3 text-sm">
+      <div className="flex flex-col md:flex-row w-full justify-between mb-3 text-sm text-white/80">
         <div className="flex flex-col w-full md:w-[48%] ">
           <label
-            className="font-semibold text-gray-600 ml-1"
+            className="font-semibold text-white/60 ml-1"
             htmlFor="username"
           >
             Username:
@@ -148,7 +148,7 @@ const EditUserForm = ({ currentUser, isLoggedIn }) => {
           <input
             type="text"
             name="username"
-            className={`py-2 bg-gray-200 px-3 rounded-lg ${
+            className={`py-2 bg-[#121212] px-3 rounded-lg ${
               edit && "border-[3px] border-gray-500"
             }`}
             value={formData.username}
@@ -157,27 +157,27 @@ const EditUserForm = ({ currentUser, isLoggedIn }) => {
           />
         </div>
         <div className="flex flex-col w-full md:w-[48%] mt-3 md:mt-0">
-          <label className="font-semibold text-gray-600 ml-1" htmlFor="email">
+          <label className="font-semibold text-white/60 ml-1" htmlFor="email">
             Email
           </label>
           <input
             type="email"
             name="email"
-            className={`py-2 bg-gray-200 px-3 rounded-lg `}
+            className={`py-2 bg-[#121212] px-3 rounded-lg `}
             value={formData.email}
             onChange={handleChange}
             disabled={true}
           />
         </div>
       </div>
-      <div className="flex flex-col w-[100%] mb-3  text-sm">
-        <label className="font-semibold text-gray-600 ml-1" htmlFor="role">
+      <div className="flex flex-col w-[100%] mb-3  text-sm text-white/80">
+        <label className="font-semibold text-white/60 ml-1 " htmlFor="role">
           Role:
         </label>
         <input
           type="text"
           name="role"
-          className={`py-2 bg-gray-200 px-3 rounded-lg ${
+          className={`py-2 bg-[#121212] px-3 rounded-lg ${
             edit && "border-[3px] border-gray-500"
           }`}
           value={formData.role}
@@ -185,13 +185,13 @@ const EditUserForm = ({ currentUser, isLoggedIn }) => {
           disabled={isLoggedIn ? (!edit ? true : false) : true}
         />
       </div>
-      <div className="flex flex-col w-full mb-8  text-sm">
-        <label className="font-semibold text-gray-600 ml-1" htmlFor="bio">
+      <div className="flex flex-col w-full mb-8  text-sm text-white/80">
+        <label className="font-semibold text-white/60 ml-1" htmlFor="bio">
           Bio:
         </label>
         <textarea
           name="bio"
-          className={`py-2 bg-gray-200 px-3 rounded-lg ${
+          className={`py-2 bg-[#121212] px-3 rounded-lg ${
             edit && "border-[3px] border-gray-500"
           }`}
           value={formData.bio}
@@ -213,8 +213,8 @@ const EditUserForm = ({ currentUser, isLoggedIn }) => {
         edit ? (
           <button
             type="submit"
-            className="border-[2px]  text-white border-[#fff] py-1 px-6 rounded-lg font-semibold
-            bg-[#388277] hover:border-[#fff] hover:bg-[#388277ef] transition-all duration-300 hover:shadow-2xl"
+            className="text-white/90 py-2 md:px-4 rounded-lg font-semibold
+            bg-[#214e47]  hover:bg-[#286058ef] transition-all duration-300 hover:shadow-2xl z-10 text-xs px-3 md:text-base"
           >
             Update
           </button>

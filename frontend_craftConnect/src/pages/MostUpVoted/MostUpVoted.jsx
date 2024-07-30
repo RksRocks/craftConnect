@@ -59,8 +59,8 @@ const MostUpvotedProjects = () => {
   };
 
   return (
-    <div className="pt-28 flex items-center  flex-col pb-16 overflow-x-hidden">
-      <h1 className="text-3xl md:text-4xl font-bold underline underline-offset-4 text-[#1b3f3a]  text-center">
+    <div className="pt-28 flex items-center  flex-col pb-16 overflow-x-hidden bg-[#0b0b0c]">
+      <h1 className="text-3xl md:text-4xl font-bold underline underline-offset-4 text-white/90  text-center">
         Most Upvoted Projects
       </h1>
       <div className="project-list relative w-full">
@@ -78,8 +78,8 @@ const MostUpvotedProjects = () => {
       {!loading && hasMore && (
         <button
           onClick={handleLoadMore}
-          className="border-[2px]  text-white border-[#fff] py-2 px-8 rounded-lg font-semibold
-            bg-[#388277] hover:border-[#fff] hover:bg-[#388277ef] transition-all duration-300 hover:shadow-2xl"
+          className=" text-white/90  py-2 px-8 rounded-lg font-semibold
+            bg-[#214e47]  hover:bg-[#286058ef] transition-all duration-300 hover:shadow-2xl"
         >
           Load More
         </button>

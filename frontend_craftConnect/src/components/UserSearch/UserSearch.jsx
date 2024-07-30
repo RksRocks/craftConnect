@@ -71,21 +71,21 @@ const SearchBox = () => {
         type="text"
         value={query}
         onChange={handleChange}
-        className="py-2 bg-[#000] md:bg-white md:placeholder:text-gray-400  placeholder:text-[#fff] text-black rounded-full w-full  px-5 placeholder:text-sm"
+        className="py-2  md:bg-[#121212] md:placeholder:text-white/60  placeholder:text-white/60 text-white/80 rounded-full w-full  px-5 placeholder:text-sm"
         placeholder="Search users by username or email"
       />
 
       <ul
         className={`absolute ${
           !results.length && !query && "hidden"
-        } top-[130%] text-center font-semibold rounded-xl text-[#336d65] w-full md:w-[400px] bg-[#e6e6e6] border-[3px] py-5 px-5 flex flex-col gap-1 shadow-2xl text-xs md:text-base`}
+        } top-[130%] text-center font-semibold rounded-xl text-[#388277] w-full md:w-[400px] bg-[#0e0e0e] border-[3px] py-5 px-5 flex flex-col gap-1 shadow-2xl text-xs md:text-base border-gray-700`}
       >
         {isLoading && <li className="w-full">Loading...</li>}
         {isError && <li className="w-full">Error fetching results</li>}
         {results && results.length > 0 ? (
           results.map((user) => (
             <li
-              className="w-full cursor-pointer border-4 border-gray-300 rounded-md py-1 flex gap-2 items-center justify-center"
+              className="w-full cursor-pointer border-2 border-gray-700 rounded-md py-1 flex gap-2 items-center justify-center"
               onClick={() => {
                 setQuery("");
                 setResults([]);

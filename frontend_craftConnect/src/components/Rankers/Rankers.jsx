@@ -8,9 +8,7 @@ import third from "../../assets/third.png";
 function Rankers({ ranker, rank }) {
   return (
     <div
-      className={`top-ranker-1 bg-green-50 shadow-md rounded-md flex flex-col  lg:flex-row items-center justify-center gap-5 p-5 ${
-        rank === 1 && "first"
-      } ${rank === 2 && "second"} ${rank === 3 && "third"}`}
+      className={`top-ranker-1 bg-[#0e0e0e] shadow-md rounded-md flex flex-col  lg:flex-row items-center justify-center gap-5 p-5 `}
     >
       <div className="w-[20%] lg:w-[7%] flex justify-center items-center">
         <img
@@ -21,7 +19,7 @@ function Rankers({ ranker, rank }) {
           }`}
         />
         <div
-          className={`ranking-number w-[100%] h-full bg-gray-300  justify-center items-center font-semibold text-lg ${
+          className={`ranking-number w-[100%] h-full bg-[#121212]  justify-center items-center font-semibold text-lg ${
             rank === 1 || rank === 2 || rank === 3 ? "hidden" : "flex"
           }`}
         >
@@ -30,7 +28,7 @@ function Rankers({ ranker, rank }) {
       </div>
       <div
         className={`top-performer-details w-full flex flex-col md:flex-row justify-center items-center md:justify-start md:items-center gap-5  ${
-          rank === 3 ? "text-white" : ""
+          rank === 3 ? "text-white" : "text-white/90"
         }`}
       >
         <div className="top-performer-img w-[10.8rem]  flex justify-center items-center  overflow-hidden">
@@ -42,17 +40,41 @@ function Rankers({ ranker, rank }) {
         </div>
         <div className="top-performer-bio pr-5 w-full flex flex-col text-center md:text-start">
           <div className="personal-details flex flex-col">
-            <h3 className="font-bold text-xl">{ranker.user.username}</h3>
             <h3
-              className={`font-semibold  text-sm ${
-                rank === 3 ? "text-gray-100" : "text-gray-600"
+              className={`font-bold text-xl ${
+                rank === 3
+                  ? "text-[#388277]/90"
+                  : rank == 1 || rank == 2
+                  ? "text-[#388277]/90"
+                  : "text-[#388277]/90"
+              }`}
+            >
+              {ranker.user.username}
+            </h3>
+            <h3
+              className={`font-semibold text-sm ${
+                rank === 3
+                  ? "text-white/80"
+                  : rank == 1 || rank == 2
+                  ? "text-white/80"
+                  : "text-white/80"
               }`}
             >
               {ranker.user.role}
             </h3>
           </div>
           <div className="description-shorted font-medium mt-2">
-            <p className="text-sm">{ranker.user.bio}</p>
+            <p
+              className={`text-sm text-white/60 ${
+                rank === 3
+                  ? "text-white/60"
+                  : rank == 1 || rank == 2
+                  ? "text-white/60"
+                  : "text-white/60"
+              }`}
+            >
+              {ranker.user.bio}
+            </p>
           </div>
           <div className="reaction-iocon flex items-center justify-end gap-5 mt-2">
             {/* <FaRegHeart className="w-5 h-5" /> */}

@@ -3,7 +3,7 @@ import Loader from "../../components/Loader/Loader";
 const Hero = lazy(() => import("./Hero"));
 function Home() {
   return (
-    <div className="px-5 md:px-12 lg:px-20">
+    <div className="px-5 md:px-12 lg:px-20 bg-[#0b0b0c]">
       <Suspense fallback={<Loader />}>
         <Hero />
       </Suspense>

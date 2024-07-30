@@ -83,7 +83,7 @@ const UpvoteButton = ({ projectId, currentUpvotes, setUpvotes }) => {
   return (
     <button
       onClick={handleUpvote}
-      className="flex items-center md:text-md font-medium hover:text-green-700"
+      className="flex items-center md:text-md font-medium hover:text-[#388277]"
     >
       {upvoted ? (
         <BiSolidUpvote className="w-5 h-5 mr-1 text-[#388277]" />

@@ -163,7 +163,7 @@ function Profile() {
     fetchData();
   }, [fetchData]);
   return (
-    <div className="pt-24 px-5 md:px-14 lg:px-20">
+    <div className="pt-24 px-5 md:px-14 lg:px-20 bg-[#0b0b0c] min-h-[100vh]">
       <div className="flex flex-col">
         {user ? (
           <EditUserForm currentUser={user?.user} isLoggedIn={isLoggedIn} />
@@ -176,14 +176,14 @@ function Profile() {
       <div className="flex flex-col w-full ">
         <div className="flex justify-between px-2 md:px-8 items-center w-full">
           <div className="md:w-1/4 hidden md:flex"></div>
-          <h1 className="text-4xl font-bold underline underline-offset-4 md:w-1/4 text-center">
+          <h1 className="text-4xl font-bold underline underline-offset-4 md:w-1/4 text-center text-white/90">
             Projects
           </h1>
           {isLoggedIn ? (
             <div className="md:w-1/4 flex justify-end">
               <button
-                className="border-[2px] text-white border-[#fff] py-1 md:px-4 rounded-lg font-semibold
-            bg-[#388277] hover:border-[#fff] hover:bg-[#388277ef] transition-all duration-300 hover:shadow-2xl z-10 text-xs px-3 md:text-md"
+                className=" text-white/90 py-2 md:px-4 rounded-lg font-semibold
+            bg-[#214e47]  hover:bg-[#286058ef] transition-all duration-300 hover:shadow-2xl z-10 text-xs px-3 md:text-base"
                 onClick={() => setAddProject(!addProject)}
               >
                 + Add Project
@@ -193,7 +193,7 @@ function Profile() {
             <div className="md:w-1/4"></div>
           )}
         </div>
-        <div className="relative w-full">
+        <div className="relative w-full bg-[#0b0b0c]">
           {projects.length > 0 ? (
             <>
               <Projects
@@ -226,7 +226,9 @@ function Profile() {
               </div>
             </>
           ) : (
-            <p className="text-center font-medium text-lg mt-16">No Projects</p>
+            <p className="text-center text-white/80 bg-[#0b0b0c] font-medium text-lg mt-16">
+              No Projects
+            </p>
           )}
         </div>
       </div>

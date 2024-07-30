@@ -133,16 +133,19 @@ const AddProjectForm = ({ userId, onAdd, onClose }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-[#F2F0EF] shadow-2xl rounded-md p-6 scroll absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] md:w-[70%]"
+      className="bg-[#0e0e0e] shadow-2xl rounded-md p-6 scroll absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] md:w-[70%]"
     >
       <div className="w-full flex flex-row justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold text-gray-800 ">Add New Project</h2>
-        <IoMdClose className="text-3xl cursor-pointer" onClick={onClose} />
+        <h2 className="text-2xl font-bold text-white/90 ">Add New Project</h2>
+        <IoMdClose
+          className="text-3xl cursor-pointer text-white/90"
+          onClick={onClose}
+        />
       </div>
       <div className="mb-4">
         <label
           htmlFor="title"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-white/60"
         >
           Title
         </label>
@@ -153,13 +156,13 @@ const AddProjectForm = ({ userId, onAdd, onClose }) => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
-          className="mt-1 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-200 sm:text-sm"
+          className="mt-1 block w-full appearance-none rounded-md  px-3 py-2 placeholder-white/60 text-white/80 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-200 sm:text-sm bg-[#121212]"
         />
       </div>
       <div className="mb-4">
         <label
           htmlFor="description"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-white/60"
         >
           Description
         </label>
@@ -168,13 +171,13 @@ const AddProjectForm = ({ userId, onAdd, onClose }) => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           required
-          className="mt-1 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-200 sm:text-sm"
+          className="mt-1 block w-full appearance-none rounded-md bg-[#121212] text-white/80 px-3 py-2 placeholder-white/60 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-200 sm:text-sm"
         ></textarea>
       </div>
       <div className="mb-4">
         <label
           htmlFor="link"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-white/60"
         >
           Link
         </label>
@@ -183,13 +186,13 @@ const AddProjectForm = ({ userId, onAdd, onClose }) => {
           type="url"
           value={link}
           onChange={(e) => setLink(e.target.value)}
-          className="mt-1 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-200 sm:text-sm"
+          className="mt-1 block w-full appearance-none rounded-md bg-[#121212] text-white/80 px-3 py-2 placeholder-white/60 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-200 sm:text-sm"
         />
       </div>
       <div className="mb-4">
         <label
           htmlFor="images"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-white/60"
         >
           Images (Max 3 files, 500KB each)
         </label>
@@ -198,12 +201,13 @@ const AddProjectForm = ({ userId, onAdd, onClose }) => {
           type="file"
           multiple
           onChange={handleFileChange}
-          className="mt-1 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-200 sm:text-sm"
+          className="mt-1 block w-full appearance-none rounded-md bg-[#121212]  px-3 py-2 placeholder-white/80 text-white/80 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-200 sm:text-sm"
         />
       </div>
       <button
         type="submit"
-        className="w-full py-2 px-4 rounded-md bg-blue-500 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        className="text-white/90 py-2 md:px-4 rounded-sm font-semibold
+            bg-[#214e47]  hover:bg-[#286058ef] transition-all duration-300 hover:shadow-2xl z-10 text-xs px-3 md:text-base w-full mt-2"
       >
         Add Project
       </button>

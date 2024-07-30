@@ -35,7 +35,7 @@ function Hero() {
   }, [fetchData]);
 
   return (
-    <div className="hero py-24 flex flex-col md:flex-row gap-5">
+    <div className="hero py-24 flex flex-col md:flex-row gap-5 text-white/90">
       <div className="hero-left w-full md:w-[75%]">
         <div className="top-rankers flex flex-col gap-5 w-full mt-4">
           <Headings heading={"Top Rankers"} link={"/top-ranked"} />

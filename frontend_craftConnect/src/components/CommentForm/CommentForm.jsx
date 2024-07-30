@@ -41,7 +41,7 @@ const CommentForm = ({ projectId, onCommentAdded }) => {
   return (
     <form onSubmit={handleSubmit} className="mt-4 flex flex-col justify-end">
       <textarea
-        className="w-full border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
+        className="w-full  bg-[#121212] text-white/80 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-gray-800"
         value={content}
         onChange={(e) => setContent(e.target.value)}
         placeholder="Add a comment"
@@ -49,7 +49,7 @@ const CommentForm = ({ projectId, onCommentAdded }) => {
       />
       <button
         type="submit"
-        className="bg-[#388277] hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2"
+        className="text-white/90 bg-[#214e47]  hover:bg-[#286058ef] font-bold py-2 px-4 rounded mt-2"
       >
         Comment
       </button>

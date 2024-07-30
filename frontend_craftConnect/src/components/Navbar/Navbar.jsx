@@ -37,7 +37,7 @@ function Navbar() {
   };
 
   return (
-    <div className="fixed flex w-full justify-between items-center z-[999] px-5 md:px-10 lg:px-20 py-4 bg-black text-white">
+    <div className="fixed flex w-full justify-between items-center z-[999] px-5 md:px-10 lg:px-20 py-4 bg-black text-white/90">
       <div className="flex">
         <Link
           to={"/"}
