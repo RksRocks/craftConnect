@@ -72,7 +72,7 @@ const SearchBox = () => {
         value={query}
         onChange={handleChange}
         className="py-2  md:bg-[#121212] md:placeholder:text-white/60  placeholder:text-white/60 text-white/80 rounded-full w-full  px-5 placeholder:text-sm"
-        placeholder="Search users by username or email"
+        placeholder="Search users"
       />
 
       <ul
