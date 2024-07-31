@@ -9,8 +9,10 @@ import { toast, Bounce } from "react-toastify";
 import Loader from "../../components/Loader/Loader";
 function Hero() {
   const [rankers, setRankers] = useState([]);
+  const [loading, setLoading] = useState(1);
 
   const fetchData = useCallback(async () => {
+    setLoading(1);
     try {
       const response = await axios.get(`/project/top-ranked`);
       setRankers(response.data);
@@ -28,18 +30,22 @@ function Hero() {
       });
       console.error(error);
     }
+    setLoading(0);
   }, []);
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="hero py-24 flex flex-col md:flex-row gap-5 text-white/90">
       <div className="hero-left w-full md:w-[75%]">
         <div className="top-rankers flex flex-col gap-5 w-full mt-4">
           <Headings heading={"Top Rankers"} link={"/top-ranked"} />
-          {rankers?.length > 0 ? (
+          {rankers == [] ? (
             rankers.map((ranker, index) => (
               <Link key={ranker._id} to={`/${ranker.user._id}`}>
                 <Rankers
@@ -53,9 +59,7 @@ function Hero() {
               </Link>
             ))
           ) : (
-            <p className="text-lg font-medium">
-              <Loader />
-            </p>
+            <p className="text-lg font-medium text-white/80">No Rankers</p>
           )}
         </div>
       </div>
