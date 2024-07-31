@@ -2,15 +2,15 @@
 // import { FaRegHeart } from "react-icons/fa";
 // import { BiUpvote } from "react-icons/bi";
 import { FaRegBookmark } from "react-icons/fa";
-import first from "../../assets/first.png";
-import second from "../../assets/second.png";
-import third from "../../assets/third.png";
+import first from "../../assets/first111-removebg-preview.png";
+import second from "../../assets/second222-removebg-preview.png";
+import third from "../../assets/third333-removebg-preview.png";
 function Rankers({ ranker, rank }) {
   return (
     <div
       className={`top-ranker-1 bg-[#0e0e0e] shadow-md rounded-md flex flex-col  lg:flex-row items-center justify-center gap-5 p-5 `}
     >
-      <div className="w-[20%] lg:w-[7%] flex justify-center items-center">
+      <div className="w-[20%] lg:w-[8%] flex justify-center items-center">
         <img
           src={rank === 1 ? first : rank === 2 ? second : third}
           alt=""

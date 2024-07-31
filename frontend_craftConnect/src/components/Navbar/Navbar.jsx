@@ -53,9 +53,9 @@ function Navbar() {
       <div
         className={`fixed top-0 ${
           navToggle ? "-left-0" : "-left-full"
-        } flex md:hidden h-[100vh] w-[100vw] bg-white/95 pt-16 px-8 gap-y-5 transition-all duration-500`}
+        } flex md:hidden h-[100vh] w-[100vw] bg-black/90 pt-16 px-8 gap-y-5 transition-all duration-500`}
       >
-        <ul className="flex flex-col gap-y-5 text-black w-full  font-medium">
+        <ul className="flex flex-col gap-y-5 text-white/90 w-full  font-medium">
           <IoMdClose
             className="text-3xl cursor-pointer self-end"
             onClick={() => setNavToggle(0)}
