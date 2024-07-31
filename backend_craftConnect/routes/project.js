@@ -20,7 +20,7 @@ router.get("/most-upvoted", mostUpVoted);
 router.get("/:projectId", getProject);
 router.post("/add", isAuthenticated, upload.array("images", 5), addProject);
 router.put("/:projectId/upvote", isAuthenticated, upvoteProject);
-router.get("/:projectId/upvote-status", getUpvoteStatus);
+router.get("/:projectId/upvote-status", isAuthenticated, getUpvoteStatus);
 router.delete("/:id/:projectId", isAuthenticated, deleteProject);
 router.put(
   "/:id/:projectId",
