@@ -69,7 +69,7 @@ export const googleLogin = async (req, res) => {
 
       if (user) {
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-          expiresIn: "1h",
+          expiresIn: "8h",
         });
         res.cookie("token", token, { httpOnly: true }).json({
           token,
@@ -101,7 +101,9 @@ export const googleLogin = async (req, res) => {
             expiresIn: "8h",
           }
         );
-        res.cookie("token", token, { httpOnly: true }).json({
+        res
+          .cookie("token", token, { httpOnly: true })
+          .json({
           token,
           action: "Register",
           user: {
