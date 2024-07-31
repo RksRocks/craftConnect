@@ -4,49 +4,49 @@ import User from "../models/users.js";
 import Upvote from "../models/upvote.js";
 import cloudinary from "../services/cloudinary.js";
 
-export const getTopRankedProjects = async (req, res) => {
-  try {
-    // Aggregate the total upvotes for each project
-    const topProjects = await Project.aggregate([
-      {
-        $lookup: {
-          from: "users",
-          localField: "user",
-          foreignField: "_id",
-          as: "user",
-        },
-      },
-      {
-        $unwind: "$user",
-      },
-      {
-        $sort: { upvotes: -1 }, // Sort by upvotes in descending order
-      },
-      {
-        $limit: 10, // Limit to top 5
-      },
-      {
-        $project: {
-          title: 1,
-          description: 1,
-          link: 1,
-          upvotes: 1,
-          created_at: 1,
-          "user.username": 1,
-          "user.email": 1,
-          "user.bio": 1,
-          "user.role": 1,
-          "user._id": 1,
-          "user.profileImg": 1,
-        },
-      },
-    ]);
+// export const getTopRankedProjects = async (req, res) => {
+//   try {
+//     // Aggregate the total upvotes for each project
+//     const topProjects = await Project.aggregate([
+//       {
+//         $lookup: {
+//           from: "users",
+//           localField: "user",
+//           foreignField: "_id",
+//           as: "user",
+//         },
+//       },
+//       {
+//         $unwind: "$user",
+//       },
+//       {
+//         $sort: { upvotes: -1 }, // Sort by upvotes in descending order
+//       },
+//       {
+//         $limit: 10, // Limit to top 5
+//       },
+//       {
+//         $project: {
+//           title: 1,
+//           description: 1,
+//           link: 1,
+//           upvotes: 1,
+//           created_at: 1,
+//           "user.username": 1,
+//           "user.email": 1,
+//           "user.bio": 1,
+//           "user.role": 1,
+//           "user._id": 1,
+//           "user.profileImg": 1,
+//         },
+//       },
+//     ]);
 
-    res.status(200).json(topProjects);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
+//     res.status(200).json(topProjects);
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// };
 
 // export const addProject = async (req, res) => {
 //   try {
@@ -130,6 +130,52 @@ export const getTopRankedProjects = async (req, res) => {
 //     res.status(500).json({ message: "Server error" });
 //   }
 // };
+
+export const getTopRankedUsers = async (req, res) => {
+  try {
+    const topUsers = await Project.aggregate([
+      {
+        $group: {
+          _id: "$user",
+          totalUpvotes: { $sum: "$upvotes" },
+        },
+      },
+      {
+        $sort: { totalUpvotes: -1 },
+      },
+      {
+        $limit: 10,
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "_id",
+          foreignField: "_id",
+          as: "user",
+        },
+      },
+      {
+        $unwind: "$user",
+      },
+      {
+        $project: {
+          totalUpvotes: 1,
+          "user.username": 1,
+          "user.email": 1,
+          "user.bio": 1,
+          "user.role": 1,
+          "user._id": 1,
+          "user.profileImg": 1,
+        },
+      },
+    ]);
+
+    res.status(200).json(topUsers);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 export const addProject = async (req, res) => {
   try {
     const { userId, title, description, link } = req.body;
