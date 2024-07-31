@@ -22,7 +22,8 @@ const UpvoteButton = ({ projectId, currentUpvotes, setUpvotes }) => {
       } catch (error) {
         if (
           error.response?.data?.message == "Token is not valid" ||
-          error.response?.data?.message == "No token, authorization denied"
+          error.response?.data?.message == "No token, authorization denied" ||
+          error.response.status == 401
         ) {
           return;
         } else {

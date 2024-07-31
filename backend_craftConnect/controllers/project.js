@@ -463,7 +463,7 @@ export const upvoteProject = async (req, res) => {
 export const getUpvoteStatus = async (req, res) => {
   try {
     if (!req.user) {
-      return res.status(403).json({ upvoted: false });
+      return res.json({ upvoted: false });
     }
 
     const { projectId } = req.params;
