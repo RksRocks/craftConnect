@@ -73,10 +73,10 @@ const MostUpvotedProjects = () => {
             <ProjectCard projects={projects} upVote={handleUpVote} />
           </>
         ) : (
-          <p className="text-lg font-medium">No Projects</p>
+          <p className="text-lg font-medium text-white/80">No Projects</p>
         )}
       </div>
-      {loading && <p className="mt-10">Loading more projects...</p>}
+      {loading && <p className="mt-10 text-white/80">Loading more projects...</p>}
       {!loading && hasMore && (
         <button
           onClick={handleLoadMore}
@@ -86,7 +86,7 @@ const MostUpvotedProjects = () => {
           Load More
         </button>
       )}
-      {!hasMore && <p>No more projects to load</p>}
+      {!hasMore && <p className="text-white/80">No projects to load</p>}
     </div>
   );
 };
