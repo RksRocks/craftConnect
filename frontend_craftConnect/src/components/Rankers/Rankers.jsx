@@ -8,7 +8,7 @@ import third from "../../assets/third333-removebg-preview.png";
 function Rankers({ ranker, rank }) {
   return (
     <div
-      className={`top-ranker-1 bg-[#0e0e0e] shadow-md rounded-md flex flex-col  lg:flex-row items-center justify-center gap-5 p-5 `}
+      className={`top-ranker-1 bg-[#121212] shadow-md rounded-md flex flex-col  lg:flex-row items-center justify-center gap-5 p-5 `}
     >
       <div className="w-[20%] lg:w-[8%] flex justify-center items-center">
         <img

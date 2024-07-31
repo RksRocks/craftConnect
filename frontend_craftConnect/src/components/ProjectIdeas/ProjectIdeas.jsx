@@ -3,7 +3,7 @@ import { IoIosLink } from "react-icons/io";
 import { Link } from "react-router-dom";
 function ProjectIdeas({ name, desc, link }) {
   return (
-    <div className="project-idea-1 bg-[#0e0e0e] shadow-md rounded-md flex flex-col lg:flex-row items-center gap-5 p-3 w-full">
+    <div className="project-idea-1 bg-[#121212] shadow-md rounded-md flex flex-col lg:flex-row items-center gap-5 p-3 w-full">
       <div className="project-detail w-full">
         <h3 className="font-semibold text-center text-lg md:text-start text-[#388277]">
           {name}
