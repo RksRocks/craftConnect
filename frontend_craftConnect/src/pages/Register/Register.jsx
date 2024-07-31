@@ -92,7 +92,7 @@ function Register() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-[#0b0b0c] px-5 pt-20">
+    <div className="flex flex-col items-center justify-center h-screen min-h-[100vh] bg-[#0b0b0c] px-5 pt-20">
       <motion.div
         className="w-full max-w-sm p-6 bg-[#0e0e0e] rounded-lg shadow-md"
         initial={{ opacity: 0, y: -50 }}

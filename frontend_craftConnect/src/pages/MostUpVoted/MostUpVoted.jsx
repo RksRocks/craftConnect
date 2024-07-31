@@ -5,7 +5,7 @@ import { toast, Bounce } from "react-toastify";
 import Loader from "../../components/Loader/Loader";
 const MostUpvotedProjects = () => {
   const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
@@ -58,20 +58,22 @@ const MostUpvotedProjects = () => {
     );
   };
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
-    <div className="pt-28 flex items-center  flex-col pb-16 overflow-x-hidden bg-[#0b0b0c]">
+    <div className="pt-28 flex items-center  flex-col pb-16 overflow-x-hidden bg-[#0b0b0c] min-h-[100vh]">
       <h1 className="text-3xl md:text-4xl font-bold underline underline-offset-4 text-white/90  text-center">
         Most Upvoted Projects
       </h1>
       <div className="project-list relative w-full">
-        {projects.length > 0 ? (
+        {projects ? (
           <>
             <ProjectCard projects={projects} upVote={handleUpVote} />
           </>
         ) : (
-          <p className="text-lg font-medium">
-            <Loader />
-          </p>
+          <p className="text-lg font-medium">No Projects</p>
         )}
       </div>
       {loading && <p className="mt-10">Loading more projects...</p>}
