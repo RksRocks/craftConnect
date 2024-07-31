@@ -101,7 +101,7 @@ export const googleLogin = async (req, res) => {
             expiresIn: "8h",
           }
         );
-        res.json({
+        res.cookie("token", token, { httpOnly: true }).json({
           token,
           action: "Register",
           user: {

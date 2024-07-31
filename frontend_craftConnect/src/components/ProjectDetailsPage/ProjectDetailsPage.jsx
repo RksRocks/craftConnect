@@ -96,7 +96,7 @@ function ProjectDetailsPage() {
 
   return (
     <>
-      <div className="container mx-auto px-4 py-28 text-white/80">
+      <div className="container mx-auto px-4 py-28 text-white/80 min-h-[100vh]">
         <div className="flex flex-col lg:flex-row">
           <div className="flex flex-col h-[300px] w-full lg:w-[40%] rounded-lg overflow-hidden bg-[#121212]">
             <div className="relative slide-container   project_imgs !h-[100%] overflow-hidden">
