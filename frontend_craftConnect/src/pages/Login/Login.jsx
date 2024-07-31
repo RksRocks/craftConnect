@@ -103,7 +103,7 @@ function Login() {
         <h1 className="text-3xl font-bold text-center text-white/90">Login</h1>
         <div className="mb-4 mt-5 flex justify-center rounded-full">
           <GoogleLogin
-            theme="filled_blue"
+            theme="filled_black"
             text="signin_with"
             shape="pill"
             size="large"
