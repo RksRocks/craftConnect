@@ -67,7 +67,7 @@ function Navbar() {
           >
             Home
           </Link>
-          
+
           <Link
             to={"/most-upvoted"}
             onClick={() => setNavToggle(0)}
@@ -75,7 +75,6 @@ function Navbar() {
           >
             Most Upvoted
           </Link>
-         
 
           <p
             onClick={() => {
@@ -115,9 +114,9 @@ function Navbar() {
           <Link to={"/"} className="hover:text-[#388277] font-bold">
             Home
           </Link>
-         
+
           <Link to={"/most-upvoted"} className="hover:text-[#388277] font-bold">
-            Most Liked
+            Most Upvoted
           </Link>
 
           <p
