@@ -32,7 +32,7 @@ function Login() {
         theme: "light",
         transition: Bounce,
       });
-      localStorage.setItem("token", response.data.token); // Save the token in localStorage
+      localStorage.setItem("token", response.data.token); 
       history("/");
     } catch (error) {
       toast.error(error.response.data.message + ":(", {

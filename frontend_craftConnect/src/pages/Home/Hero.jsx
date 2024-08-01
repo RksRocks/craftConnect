@@ -1,6 +1,5 @@
 import Rankers from "../../components/Rankers/Rankers";
 import ProjectIdeas from "../../components/ProjectIdeas/ProjectIdeas";
-// import OnGoingHirings from "../../components/OnGoingHirings/OnGoingHirings";
 import Headings from "../../components/Headings/Headings";
 import { useCallback, useEffect, useState } from "react";
 import axios from "../../api/axios";
@@ -50,10 +49,7 @@ function Hero() {
               <Link key={ranker._id} to={`/${ranker.user._id}`}>
                 <Rankers
                   ranker={ranker}
-                  // title={ranker.title}
-                  // description={ranker.description}
-                  // upvotes={ranker.upvotes}
-                  // username={ranker.user.username}
+               
                   rank={index + 1}
                 />
               </Link>

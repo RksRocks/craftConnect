@@ -1,4 +1,4 @@
-// pages/ProjectDetailsPage.jsx
+
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import UpvoteButton from "../UpvoteButton/UpvoteButton";
@@ -20,7 +20,7 @@ function ProjectDetailsPage() {
       const response = await fetch(
         `https://craftconnect-production.up.railway.app/api/project/${projectId}`,
         {
-          credentials: "include", // Include cookies for authentication
+          credentials: "include", 
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -60,7 +60,7 @@ function ProjectDetailsPage() {
   }, [projectId]);
 
   const handleCommentAdded = (comment, username, profileImg) => {
-    // Add the new comment with the username to the state
+    
     setComments((prevComments) => [
       { ...comment, user: { username, profileImg } },
       ...prevComments,

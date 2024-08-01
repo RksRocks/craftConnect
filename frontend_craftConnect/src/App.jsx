@@ -51,8 +51,7 @@ function App() {
                 path="/project/:projectId"
                 element={<ProjectDetailsPage />}
               />
-              {/* <Route path="/" element={<ProfileEditable />} /> */}
-              {/* <Route path="/" element={<ProfileNonEditable />} /> */}
+            
             </Routes>
           </Suspense>
           <Footer />

@@ -38,7 +38,7 @@ function Profile() {
           return setIsLoggedIn(0);
         }
         return setIsLoggedIn(1);
-        // history(`/${decoded.userId}`);
+       
       } catch (error) {
         toast.error("Failed to decode token :(", {
           position: "top-center",
@@ -72,23 +72,14 @@ function Profile() {
 
   const handleDelete = async (projectId) => {
     try {
-      // const response = await fetch(
-      //   `https://craftconnect-production.up.railway.app/api/project/${id}/${projectId}`,
-      //   {
-      //     method: "DELETE",
-      //     credentials: "include", // Include cookies for authentication
-      //     headers: {
-      //       Authorization: `Bearer ${localStorage.getItem("token")}`,
-      //     },
-      //   }
-      // );
+   
       const response = await axios.delete(
         `https://craftconnect-production.up.railway.app/api/project/${id}/${projectId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          withCredentials: true, // Include cookies for authentication (equivalent to credentials: 'include')
+          withCredentials: true, 
         }
       );
 

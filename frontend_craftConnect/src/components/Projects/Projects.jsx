@@ -89,7 +89,6 @@ function Projects({
             <p className="font-medium text-base scroll-auto h-[41%] overflow-y-scroll w-full bar project-desc  text-white/80 ">
               {project.description}
             </p>
-            {/* <p>{project.link}</p> */}
 
             <div className="flex w-full justify-between mt-3 items-center gap-x-4">
               <button

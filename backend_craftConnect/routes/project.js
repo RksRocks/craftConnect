@@ -1,8 +1,6 @@
 import { Router } from "express";
-// import * as projectController from "../controllers/project.js";
 import {
   getProject,
-  // getTopRankedProjects,
   getTopRankedUsers,
   addProject,
   deleteProject,
@@ -16,7 +14,6 @@ import { isAuthenticated } from "../middlewares/auth.js";
 import upload from "../services/multer.js";
 const router = Router();
 
-// router.get("/top-ranked", getTopRankedProjects);
 router.get("/top-ranked", getTopRankedUsers);
 router.get("/most-upvoted", mostUpVoted);
 router.get("/:projectId", getProject);

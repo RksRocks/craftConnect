@@ -1,6 +1,4 @@
-// import { FaRegComment } from "react-icons/fa";
-// import { FaRegHeart } from "react-icons/fa";
-// import { BiUpvote } from "react-icons/bi";
+
 import { FaRegBookmark } from "react-icons/fa";
 import first from "../../assets/first111-removebg-preview.png";
 import second from "../../assets/second222-removebg-preview.png";

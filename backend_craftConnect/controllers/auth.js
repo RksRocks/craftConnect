@@ -1,10 +1,10 @@
-// controllers/auth.js
+
 import "dotenv/config";
 import jwt from "jsonwebtoken";
 import User from "../models/users.js";
 import { OAuth2Client } from "google-auth-library";
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-// Register user
+
 export const register = async (req, res) => {
   try {
     const { username, email, password, role } = req.body;
@@ -22,7 +22,7 @@ export const register = async (req, res) => {
   }
 };
 
-// Login user
+
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;

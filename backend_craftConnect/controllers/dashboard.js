@@ -15,7 +15,7 @@ export const getDashboardData = async (req, res) => {
       const projectUpvotes = upvotes.filter((upvote) =>
         upvote.project.equals(project._id)
       ).length;
-      const profileVisits = 0; // Assuming you have some way to track profile visits
+      const profileVisits = 0;
 
       return {
         project,

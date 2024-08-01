@@ -14,8 +14,6 @@ const UserSchema = new Schema({
   },
   profileImg: {
     type: String,
-    // required: true,
-    // unique: true,
   },
   password: {
     type: String,
@@ -35,7 +33,6 @@ const UserSchema = new Schema({
   },
 });
 
-// Pre-save hook to hash password
 UserSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     return next();

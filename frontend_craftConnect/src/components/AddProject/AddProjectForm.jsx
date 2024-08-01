@@ -79,7 +79,7 @@ const AddProjectForm = ({ userId, onAdd, onClose }) => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          withCredentials: true, // Include cookies for authentication
+          withCredentials: true,
         }
       );
 

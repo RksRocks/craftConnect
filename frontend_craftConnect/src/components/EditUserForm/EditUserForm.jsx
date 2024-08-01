@@ -1,4 +1,4 @@
-// components/EditUserForm/EditUserForm.jsx
+
 import { useState, useEffect } from "react";
 import axios from "../../api/axios";
 import { FaRegEdit } from "react-icons/fa";
@@ -72,7 +72,7 @@ const EditUserForm = ({ currentUser, isLoggedIn }) => {
       });
       setOriginalData(formData);
       setEdit(0);
-      // Optionally, you can update the current user details in your app state
+    
     } catch (error) {
       toast.error(error.response.data.message, {
         position: "top-center",

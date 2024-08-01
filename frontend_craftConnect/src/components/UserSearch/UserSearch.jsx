@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from "react";
-import axios from "../../api/axios"; // Adjust import according to your setup
+import axios from "../../api/axios"; 
 import { debounce } from "lodash";
 import { useNavigate } from "react-router-dom";
 import { toast, Bounce } from "react-toastify";
@@ -37,7 +37,7 @@ const SearchBox = () => {
       try {
         const response = await axios.get("/user/search", { params: { query } });
 
-        setResults(response.data || []); // Ensure results is always an array
+        setResults(response.data || []);
       } catch (error) {
         toast.error("Error fetching search results :(", {
           position: "top-center",
@@ -55,8 +55,8 @@ const SearchBox = () => {
       } finally {
         setIsLoading(false);
       }
-    }, 700), // Throttle API calls, 300ms delay
-    [] // No dependencies, since debounce does not change
+    }, 700),
+    [] 
   );
 
   const handleChange = (e) => {

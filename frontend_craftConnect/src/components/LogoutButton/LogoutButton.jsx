@@ -11,7 +11,7 @@ const LogoutButton = () => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      localStorage.removeItem("token"); // Remove the token from localStorage
+      localStorage.removeItem("token"); 
       toast.success("Logged out successfully", {
         position: "top-center",
         autoClose: 3000,
@@ -23,7 +23,7 @@ const LogoutButton = () => {
         theme: "light",
         transition: Bounce,
       });
-      history("/login"); // Redirect to login page
+      history("/login");
     } catch (error) {
       toast.error(error.response.data.message + ":(", {
         position: "top-center",

@@ -16,7 +16,7 @@ function ProjectIdeas({ name, desc, link }) {
         <Link to={link} target="_blank">
           <IoIosLink className="w-5 h-5 text-white/90" />
         </Link>
-        {/* <FaRegHeart className="w-5 h-5" /> */}
+  
       </div>
     </div>
   );
