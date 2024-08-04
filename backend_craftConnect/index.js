@@ -1,4 +1,3 @@
-import "./services/passport.js";
 import "dotenv/config";
 import express from "express";
 const app = express();
