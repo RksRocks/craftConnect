@@ -18,7 +18,7 @@ function ProjectDetailsPage() {
   useEffect(() => {
     const fetchProjectDetails = async () => {
       const response = await fetch(
-        `https://craftconnect-247s.onrender.com/project/${projectId}`,
+        `https://craftconnect-247s.onrender.com/api/project/${projectId}`,
         {
           credentials: "include", 
           headers: {
