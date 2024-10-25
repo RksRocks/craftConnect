@@ -73,7 +73,7 @@ const AddProjectForm = ({ userId, onAdd, onClose }) => {
 
     try {
       const response = await axios.post(
-        "https://craftconnect-247s.onrender.com/project/add",
+        "https://craftconnect-247s.onrender.com/api/project/add",
         formData,
         {
           headers: {
